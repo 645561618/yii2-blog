@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="keywords" content="中之诺">
+        <meta name="description" content="中之诺" />
+        <title>中之诺</title>
+        <!--<link href="http://qifanweb.cn/17/zznbd/theme/default/style_1.css" rel="stylesheet" type="text/css" />-->
+        <!--<link href="http://qifanweb.cn/17/zznbd/theme/default/basic_1.css" rel="stylesheet" type="text/css"/>-->
+        <!--<script type="text/javascript" src="http://qifanweb.cn/17/zznbd/theme/default/images/jquery.js"></script>-->
+	<!--<script type="text/javascript" src="/js/SimpleHtmlTree.js"></script>-->
+	<style type="text/css">
+        .help {
+            color: red;
+        }
+
+        .overlay {
+            position: fixed;
+            z-index: 100;
+            top: 0px;
+            left: 0px;
+            height: 100%;
+            width: 100%;
+            color: red;
+            background-color: #666666;
+            filter: alpha(opacity=75);
+            -moz-opacity: 0.75;
+            opacity: 0.75;
+            text-align: center;
+
+        }
+
+        .newwindow {
+            background-color: #ffffff;
+            position: fixed;
+            z-index: 102;
+            border: #d8d8d8 2px solid;
+            width: 400px;
+            height: 200px;
+            top: 50%;
+            left: 50%;
+            margin-left: -100px;
+            margin-top: -100px;
+            color: #106480;
+        }
+
+        .caption {
+            height: 25px;
+            width: 270px;
+            padding: 0px 80px 10px 25px;
+            float: left;
+        }
+	.caption h5 {
+	    font-size: 20px;
+	    margin-bottom: 26px;
+	    color: #333;
+	}
+        .close {
+            height: 25px;
+            padding-top: 5px;
+            padding-right: 5px;
+            float: right;
+            color: block;
+            cursor: hand;
+	    font-size: 16px;
+    	    font-weight: bold;
+     	    color: #999;
+	    cursor: pointer;
+        }
+
+        .picCount {
+            margin-top: 10px;
+            padding: 10px 0;
+            border-top: 1px solid #ccc;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .form-control {
+            width: 350px;
+        }
+
+        .controls li {
+            clear: both;
+            padding: 2px 0;
+            line-height: 34px;
+        }
+
+        .controls li span.dt {
+            font-size: 14px;
+            float: left;
+            text-align: right;
+            width: 60px;
+            padding-right: 8px;
+        }
+
+        .clearfix:after {
+            visibility: hidden;
+            display: block;
+            font-size: 0;
+            content: " ";
+            clear: both;
+            height: 0;
+        }
+
+        .clearfix {
+            zoom: 1;
+        }
+
+        .control-group {
+            width: 500px;
+        }
+	#submitId {
+ 	   border: none;
+	    background: #ff6600;
+	    display: block;
+	    padding: 0 14px;
+	    height: 34px;
+	    line-height: 34px;
+	    border-radius: 3px;
+	    color: #fff;
+	    margin-top: 20px;
+	}
+    </style>
+    </head>
+
+    <body>
+        <div id="main" class="main" style="height:100%">
+            <div class="main_wrap" style="width:100%;height:auto;position:inherit;padding-top:500px;">
+                <div class="entrance-bg" >
+                    <div id="entranceWrapper" class="entrance-content" style="margin-top: -180px;" >
+                        <header style="z-index:10;">
+                            <img src="http://qifanweb.cn/17/zznbd/theme/default/images/logo2.png" style="max-height:140px;margin-left: 10%;" alt="logo">                         
+                        </header>
+
+                        <section>
+			    {% set form = form_begin({'id':'uploadForm','layout':'horizontal','options':{'enctype':'multipart/form-data'}}) %}
+                                <div >
+                                    <div class="en-row" >
+					{{ form.field(model, 'name').textInput({'placeholder':'姓名','class':'en-input-text'}).label('')|raw }}
+                                    </div>
+                                    <div class="en-row" >
+					{{ form.field(model, 'email').textInput({'placeholder':'邮箱','class':'en-input-text'}).label('')|raw }}
+                                    </div>
+                                    <div class="en-row" >
+					{{ form.field(model, 'phone').textInput({'placeholder':'手机','class':'en-input-text'}).label('')|raw }}
+                                    </div>
+
+                                    <div class="en-row" >
+					{{ form.field(model, 'number').textInput({'placeholder':'身份证号','class':'en-input-text'}).label('')|raw }}
+                                    </div>
+                                    <div class="en-row en_label" >
+                                        性别：
+                                        <label > <input  type="radio" checked="checked" name="ApplyBack[sex]" value='1' />男</label>
+                                       <label> <input  type="radio"  name="ApplyBack[sex]"  value='0'/>女</label>
+                                       
+                                    </div>
+                                     <div class="en-row en_label" >
+                                        是否有过期货类交易经历：
+                                        <label><input  type="radio" checked="checked" name="ApplyBack[status]" value='1'/>是 </label> 
+                                      <label><input  type="radio"  name="ApplyBack[status]" value='0'/>否 </label> 
+                                       
+                                    </div>
+                                  
+                                    <div class="carded"  style='position:relative;width: 100%; '>
+                                            <p class="en-input-text en_en1" style=" opacity:0;" onClick="uploadFile('1');"></p>
+                                            <input type="hidden" class="en-input-text en_en1" id="img_image1" value="" name='ApplyBack[number_front]' style=" opacity:0;">                 
+                                            <div class="en-row en_sc en_sc1">上传身份证正面
+                                          	  <img src="http://qifanweb.cn/17/zznbd/theme/default/images/icon_yes.png" style="position:absolute;right:10%;top:40%;display:none" class="upload1">
+                                            </div>
+					    <img alt="" width="100px" height="100px" class="img_image1" src="">
+                                    </div>
+
+                                     <div class="carded"   style='position:relative;width: 100%;'>
+                                        <p class="en-input-text en_sc1"  style=" opacity:0;" onClick="uploadFile('2');"></p>
+                                        <input type="hidden" class="en-input-text" id="img_image2" value="" name='ApplyBack[number_back]' style=" opacity:0;">                 
+                                       
+                                            <div class="en-row en_sc en_sc1">上传身份证反面
+                                            <img src="http://qifanweb.cn/17/zznbd/theme/default/images/icon_yes.png" style="position:absolute;right:10%;top:40%;display:none" class="upload2"></div>
+					<img alt="" width="100px" height="100px" class="img_image2" src="">
+                                    </div>
+
+                                    <div class="carded"  style='position:relative;width: 100%;'>
+                                        <p class="en-input-text en_sc1"  style=" opacity:0;" onClick="uploadFile('3');"></p>
+                                        <input type="hidden" class="en-input-text en_en2" id="img_image3" value="" name='ApplyBack[bank_img]' style=" opacity:0;">                 
+                                       
+                                            <div class="en-row en_sc en_sc2" >上传本人四大行之一的银行卡正面 
+                                            <img src="http://qifanweb.cn/17/zznbd/theme/default/images/icon_yes.png" style="position:absolute;right:10%;top:40%;display:none" class="upload3"></div>
+					<img alt="" width="100px" height="100px" class="img_image3" src="">
+                                     </div>
+
+                                     <div class="en-row" style='margin-top:5%'>
+					{{ form.field(model, 'bank_name').textInput({'placeholder':'开户银行','class':'en-input-text'}).label('')|raw }}
+                                    </div>
+
+                                      <div class="en-row" style='margin-top:5%'>
+					{{ form.field(model, 'bank_code').textInput({'placeholder':'开户代码','class':'en-input-text'}).label('')|raw }}
+                                    </div>
+
+                                    </div>
+                                     <div class="en-row" style='margin-top:5%'>
+                                        <input type="checkbox"  value="1"  name='ApplyBack[read]'   checked/> 阅读并同意
+                                        <a href="javascript:;" id="protocol" style="color:#fff;text-decoration:none" >《用户服务协议及风险揭示书》</a>
+                                    </div>
+                                   
+                                    <div class="en-row" >
+					<input type='submit' value='提交' class='tui-button tui-button-primary' style="display:block;box-sizing: border-box; width:100%;padding:0 8px" />
+                                    </div>
+
+                                  
+                                </div>
+			    {{ void(form.end()) }}
+                        </section>
+
+
+                  
+                        
+
+                             <div class="tan">
+                                       <div class="imgt">
+                                       <p class="MsoNormal"  style="font-size=16px; text-align=center;">
+	 <b>中之诺用户服务协议</b>
+</p>
+<p class="MsoNormal">
+	中之诺网站提供的所有服务系中之诺信息科技有限公司（以下称“本公司”）所提供之
+</p>
+<p class="MsoNormal">
+	增值服务（以下称“本服务”）。为了保障您的权益，请于注册或使用本服务前，详细
+</p>
+<p class="MsoNormal">
+	阅读本“用户服务协议”条款（以下称“服务条款”）所有内容。当您注册或使用本服
+</p>
+<p class="MsoNormal">
+	务时，即表示您已阅读、了解并同意接受本服务条款之所有内容。我们保留随时修改本
+</p>
+<p class="MsoNormal">
+	服务条款之权利，并随时通过中之诺网站公布最新之变更事项，而无需另作个别通知。
+</p>
+<p class="MsoNormal">
+	<span>     </span>一、您的注册义务
+</p>
+<p class="MsoNormal">
+	<span>     </span>为了能使用本服务，你需要：
+</p>
+<p class="MsoNormal">
+	<span>    </span>（一）您必须选择注册成为中之诺的用户，中之诺的账户包含用户账户、资金账户、
+</p>
+<p class="MsoNormal">
+	交易账户，用户账户是用户在中之诺平台的唯一标识，资金账户是用户账户下用于存
+</p>
+<p class="MsoNormal">
+	放资金的账户（包含但不限于余额账户、操盘账户）。
+</p>
+<p class="MsoNormal">
+	<span>    </span>（二）您同意遵守所有与本服务相关之国内国际法律及规定，并同意不冒用或盗用他
+</p>
+<p class="MsoNormal">
+	人的身份或者干扰他人使用本服务。
+</p>
+<p class="MsoNormal">
+	<span>    </span>（三）您必须依本服务注册表之提示提供您本人正确、最新及完整的资料（以下称“登
+</p>
+<p class="MsoNormal">
+	记资料”），您保证不使用他人的资料在中之诺网站注册。
+</p>
+<p class="MsoNormal">
+	<span>    </span>（四）您有义务维护并立即更新您的「登记资料」，确保其为正确、最新及完整。若
+</p>
+<p class="MsoNormal">
+	您提供任何错误、不实、过时或不完整的资料，或者本公司有合理的理由怀疑您的「登
+</p>
+<p class="MsoNormal">
+	记资料」为错误、不实、过时或不完整，本公司有权暂停或终止您的用户账户，并拒绝
+</p>
+<p class="MsoNormal">
+	您现在和未来使用本服务之部份或全部，您并同意负担因此所产生的直接或间接的任何
+</p>
+<p class="MsoNormal">
+	损失、支出、费用、罚金。
+</p>
+<p class="MsoNormal">
+	<span>    </span>（五）您的用户基本资料（包含并不仅限于姓名、身份认证证件信息、手机号码、金
+</p>
+<p class="MsoNormal">
+	融账户等一切必要信息）为使用本服务的必需资料，如有变更请立即修正。若因用户未
+</p>
+<p class="MsoNormal">
+	及时更新基本资料，导致有关流程和操作（包括但不限于后续资金流、资讯流等作业）
+</p>
+<p class="MsoNormal">
+	无法完成或发生错误，由此产生的一切后果和责任由用户承担；用户并不得以此作为取
+</p>
+<p class="MsoNormal">
+	消交易、拒绝付款或采取其他不当行为之理由。
+</p>
+<p class="MsoNormal">
+	<span>    </span>（六）对于您使用任何不正确不合法之连线方式招致的任何损失、支出、费用、罚金，
+</p>
+<p class="MsoNormal">
+	本公司将不会负担任何责任。
+</p>
+<p class="MsoNormal">
+	（七）您应确保您的用户账户和密码仅由您本人亲自使用。本公司严厉禁止使用非您
+</p>
+<p class="MsoNormal">
+	本人的用户账户和密码进行交易或者将您本人的用户账户和密码提供给他人使用。使用
+</p>
+<p class="MsoNormal">
+	他人用户账户和密码者与该用户账户和密码的实际注册人应承担与交易相关的所有法
+</p>
+<p class="MsoNormal">
+	律责任。
+</p>
+<p class="MsoNormal">
+	<span>    </span>（八）您同意本公司基于自身之独立判断，有权于发现异常交易或有疑异或违法之交
+</p>
+<p class="MsoNormal">
+	易时，不经通知先行暂停或终止您的用户账户，并拒绝您使用本服务之部份或全部。但
+</p>
+<p class="MsoNormal">
+	是，判断和发现异常交易或有疑异或违法之交易，并不构成本公司的一项义务和责任。
+</p>
+<p class="MsoNormal">
+	<span>     </span>二、用户账户和密码及其安全
+</p>
+<p class="MsoNormal">
+	<span>     </span>采取必要和有效的措施，确保您本人用户密码及账户的机密安全，是您的责任。您将
+</p>
+<p class="MsoNormal">
+	对使用该密码及账户所进行的一切行动，负完全的责任，并同意遵守和执行以下事项：
+</p>
+<p class="MsoNormal">
+	<span>    </span>（一）您的密码或账户遭到冒用、盗用或有其他任何影响安全的问题发生时，请立即
+</p>
+<p class="MsoNormal">
+	通知本公司。
+</p>
+<p class="MsoNormal">
+	<span>    </span>（二）为了交易安全，请您避免在公共计算机上或网吧中使用本服务。
+</p>
+<p class="MsoNormal">
+	<span>    </span>（三）每次连线完毕，请确认您均已确实退出您的账户登录。
+</p>
+<p class="MsoNormal">
+	<span>    </span>（四）您不可向其他任何人泄露、透露、告知的您用户账户和密码，亦不可使用其他
+</p>
+<p class="MsoNormal">
+	任何人的用户账户和密码。由于您的原因导致您的用户账户和<span>/</span>或密码被其他任何人知
+</p>
+<p class="MsoNormal">
+	悉，造成您的用户账户和<span>/</span>或密码被他人使用导致您损失的，本公司不承担任何责任。
+</p>
+<p class="MsoNormal">
+	<span>   </span>（五）您同意于发现有第三人冒用或盗用您的账户及密码，或其他任何未经合法授权
+</p>
+<p class="MsoNormal">
+	之情形，应立即通知本公司，要求停止其使用本服务并采取防范之措施。本公司于接受
+</p>
+<p class="MsoNormal">
+	通知前（该等通知应不存在任何迟延情形），对第三人使用本服务已发生之效力和后果，
+</p>
+<p class="MsoNormal">
+	除非可证明本公司对未经合法授权之使用的形成存在故意或重大过失，否则本公司将不
+</p>
+<p class="MsoNormal">
+	承担任何责任。若您迟延通知，则迟延期间产生的损失，本公司将不需承担任何责任。
+</p>
+<p class="MsoNormal">
+	<span>    </span>（六）检查、监控和发现是否有第三人冒用或盗用您的用户账户及密码、或其他任何
+</p>
+<p class="MsoNormal">
+	未经合法授权之情形，是您的义务和责任。
+</p>
+<p class="MsoNormal">
+	<span>     </span>三、本公司与您之间的法律关系
+</p>
+<p class="MsoNormal">
+	<span>    </span>（一）
+本公司为您指定的服务提供商：
+</p>
+<p class="MsoNormal">
+	<span>     1</span>、一旦您注册成为本服务之用户，本公司将遵照您的指示和授权并根据本公司的
+</p>
+<p class="MsoNormal">
+	流程规定和要求将您指定银行账户、中之诺账户中的款项支付给您授权使用服务的服
+</p>
+<p class="MsoNormal">
+	务商，或收取他人及授权服务商支付给您的款项并遵照您的指示以及本公司的流程规定
+</p>
+<p class="MsoNormal">
+	和要求将此笔款项转入您指定银行账户中。
+</p>
+<p class="MsoNormal">
+	<span>    2</span>、任何情况下，您的资金将始终独立于本公司资金之外，本公司不会将您的资金
+</p>
+<p class="MsoNormal">
+	用于非您指示或授权的用途上。
+</p>
+<p class="MsoNormal">
+	<span>    3</span>、使用本服务，您一定要在您的用户账户中维持资金余额，本公司会妥善保管您
+</p>
+<p class="MsoNormal">
+	的资金以供您交易时使用。您账户中的资金视资金账户属性的不同可能产生收益，此部
+</p>
+<p class="MsoNormal">
+	分权益将由资金账户独立协议另行约定。
+</p>
+<p class="MsoNormal">
+	<span>     </span>四、本服务使用条款
+</p>
+<p class="MsoNormal">
+	<span>    </span>（一）资格认定：为使用本服务，您必须使用一个有效的手机号，在中之诺网站上注
+</p>
+<p class="MsoNormal">
+	册成为本公司用户。一个有效的手机号码仅能在中之诺网站内注册一次，本公司保留
+</p>
+<p class="MsoNormal">
+	终结重复账户的权利。您保证您所提供的手机号是有效的，保证本公司及其他用户可以
+</p>
+<p class="MsoNormal">
+	通过上述联系方式与您进行联系。
+</p>
+<p class="MsoNormal">
+	<span>    </span>（二）国际用户：中之诺暂时不支持国际用户使用
+</p>
+<p class="MsoNormal">
+	<span>    </span>（三）充值：当您注册成为本服务的用户，您可通过本公司提供的银行渠道对资金账
+</p>
+<p class="MsoNormal">
+	户进行充值。但本公司无须对您使用本服务期间由本公司保管或代收或代付的款项的资
+</p>
+<p class="MsoNormal">
+	金贬值承担风险。
+</p>
+<p class="MsoNormal">
+	<span>    </span>（四）冻结、解冻：本公司对您充值到资金账户中的余额，有权根据您授权的交易服
+</p>
+<p class="MsoNormal">
+	务商进行冻结和解冻操作，冻结期间账户余额将不能被您做其他类型操作，解冻后的账
+</p>
+<p class="MsoNormal">
+	户余额可以进行其他操作。
+</p>
+<p class="MsoNormal">
+	<span>    </span>（五）付款：本公司将根据您授权交易服务商的指令对您的余额发起付款（付款用途
+</p>
+<p class="MsoNormal">
+	包括但不限于差错处理、手续费、亏损赔付金等），您可以根据本公司提供的交易明细
+</p>
+<p class="MsoNormal">
+	进行复核所有付款指令，若对付款指令存在异议，可以向本公司提交争议处理请求，本
+</p>
+<p class="MsoNormal">
+	公司将本着公开、公证、公平的原则协议您处理与交易服务商的结算纠纷。
+</p>
+<p class="MsoNormal">
+	<span>    </span>（六）收款：本公司将根据您授权交易服务商的指令接受来自其他用户的付款（付款
+</p>
+<p class="MsoNormal">
+	用途包括但不限于差错处理、交易盈利等），您可以根据本公司提供的交易明细进行复
+</p>
+<p class="MsoNormal">
+	核所有收款指令，若对收款指令存在异议，可以向本公司提交争议处理请求，本公司将
+</p>
+<p class="MsoNormal">
+	本着公开、公证、公平的原则协议您处理与交易服务商的结算纠纷。
+</p>
+<p class="MsoNormal">
+	<span>    </span>（七）提现：当您欲将本人用户账户中的余额提领出来时，您必须事先根据本服务指
+</p>
+<p class="MsoNormal">
+	示输入一个有效的国内银行账户。当您根据有关流程规定和条件给出「提现」指示后，
+</p>
+<p class="MsoNormal">
+	本公司将于三个工作日内将您的资金按照您的指示提取出来。本公司拥有制定及不时调
+</p>
+<p class="MsoNormal">
+	整提现最低额度、最高额度以及提现频率之权利。您同意本公司有权基于单方判断，在
+</p>
+<p class="MsoNormal">
+	本公司发现您提出大额提现要求时，要求您向本公司提供合法有效的身份证据。在您未
+</p>
+<p class="MsoNormal">
+	能按要求提供身份证据之前时，公司有权不执行您的提现要求并将交易金额及费用退回
+</p>
+<p class="MsoNormal">
+	到您的中之诺账户中。
+</p>
+<p class="MsoNormal">
+	<span>    </span>（八）服务手续费用：您使用本服务时，本公司将向您收取相关服务之手续费用。各
+</p>
+<p class="MsoNormal">
+	项服务手续费用依据每项服务独立的服务协议另行约定。本公司拥有制定及不时调整服
+</p>
+<p class="MsoNormal">
+	务手续费之权利。
+</p>
+<p class="MsoNormal">
+	<span>    </span>（九）电子联系：您同意本公司使用电子方式与您保持联系。如果您不同意以电子方
+</p>
+<p class="MsoNormal">
+	式联系，本公司拥有结束您使用本服务的权利。
+</p>
+<p class="MsoNormal">
+	（十）连线设备：为使用本服务，您应当使用具备良好品质的连线设备。若因您的连
+</p>
+<p class="MsoNormal">
+	线设备损坏或故障，造成您与本服务连接时所进行的交易和提现记录丢失的，本公司将
+</p>
+<p class="MsoNormal">
+	不承担您因此遭受的任何损失。
+</p>
+<p class="MsoNormal">
+	<span>    </span>（十一）行为限制：当您使用本服务时，严禁从事以下行为：
+</p>
+<p class="MsoNormal">
+	<span>    1</span>、反对宪法所确定的基本信息服务；
+</p>
+<p class="MsoNormal">
+	<span>    2</span>、危害国家安全，泄露国家秘密，颠覆国家政权，破坏国家统一的；
+</p>
+<p class="MsoNormal">
+	<span>    3</span>、损坏国家荣誉和利益的；
+</p>
+<p class="MsoNormal">
+	<span>    4</span>、煽动民族仇恨、民族岐视、破坏民族团结的；
+</p>
+<p class="MsoNormal">
+	<span>    5</span>、破坏国家民族宗教政策，宣扬邪教和封建迷信的；
+</p>
+<p class="MsoNormal">
+	<span>    6</span>、散布谣言，扰乱社会秩序，破坏社会稳定的；
+</p>
+<p class="MsoNormal">
+	<span>    7</span>、散布谣言、色情、赌博、暴力、凶杀、恐怖或者教唆犯罪的；
+</p>
+<p class="MsoNormal">
+	<span>    8</span>、侮辱或者诽谤他人，侵害他人合法权益的；
+</p>
+<p class="MsoNormal">
+	<span>    9</span>、含有法律、行政法规禁止的其他内容的。
+</p>
+<p class="MsoNormal">
+	<span>    10</span>、从事伪造或是偷窃物品之交易。
+</p>
+<p class="MsoNormal">
+	<span>    11</span>、从事任何与赌博性商品或行为有关之交易。
+</p>
+<p class="MsoNormal">
+	<span>    12</span>、侵害第三者之著作权、专利权、知识财产权、商标或商业机密之交易。
+</p>
+<p class="MsoNormal">
+	<span>    13</span>、从事任何违法之交易。
+</p>
+<p class="MsoNormal">
+	<span>    14</span>、从事任何有关色情交易。
+</p>
+<p class="MsoNormal">
+	<span>    15</span>、从事任何可能含有电脑病毒或是任何可能侵害本服务系统、资料之行为。
+</p>
+<p class="MsoNormal">
+	<span>    16</span>、任何可能对本服务造成部份或全部妨害之行为。
+</p>
+<p class="MsoNormal">
+	<span>    17</span>、从事任何违反中华人民共和国相关法律，法规和规定的不正当交易。
+</p>
+<p class="MsoNormal">
+	<span>    </span>（十二）入侵：如果您破坏、入侵、修改本服务功能或其安全防护体系或者实施其他
+</p>
+<p class="MsoNormal">
+	危害本服务功能或安全防护体系的行为，您的用户账户将会被注销，且您必须承担一切
+</p>
+<p class="MsoNormal">
+	损害赔偿责任及接受一切法律责任。
+</p>
+<p class="MsoNormal">
+	<span>    </span>（十三）权利义务移转：在本服务条款之约束下，若无本公司的书面同意，您无法转
+</p>
+<p class="MsoNormal">
+	移任何权利和义务。
+</p>
+<p class="MsoNormal">
+	<span>    </span>（十四）客户责任：如果您认为您的用户账户或密码可能存在安全问题，或者您发现
+</p>
+<p class="MsoNormal">
+	有人私自使用您的用户账户或密码，请您立刻通知本公司。若您发现任何未经许可的交
+</p>
+<p class="MsoNormal">
+	易，或者有人已经知悉您的用户账户和密码，或者您发现您的交易和提现记录有误，您
+</p>
+<p class="MsoNormal">
+	必须立即通知本公司，这是您的义务和责任。
+</p>
+<p class="MsoNormal">
+	<span>    </span>（十五）如果您发现有未经您授权产生的交易或资金提现，您必须立刻通知本公司，
+</p>
+<p class="MsoNormal">
+	这是您的义务和责任。您的及时通知将可能有助于保护您的权益。
+</p>
+<p class="MsoNormal">
+	<span>    </span>（十六）您同意本公司有权基于单方判断，包含但不限于本公司认为您已经违反本服
+</p>
+<p class="MsoNormal">
+	务条款的明文规定及精神，或在发现异常交易或有疑异或有违法之虞时不经事先通知而
+</p>
+<p class="MsoNormal">
+	冻结您的账户、密码，并拒绝您使用本服务之部份或全部功能。您在希望解除冻结或索
+</p>
+<p class="MsoNormal">
+	回您在账户中的款项时，本公司有权要求您向本公司提供合法有效的交易证据，必要时
+</p>
+<p class="MsoNormal">
+	您应就您提供的证据向本公司、银行或有关司法机构予以说明。否则，您应独立承担由
+</p>
+<p class="MsoNormal">
+	此造成的一切损失。
+</p>
+<p class="MsoNormal">
+	<span>    </span>（十七）在发生任何违法交易、盗窃或诈骗行为等触犯刑法之情况时，本公司将按照
+</p>
+<p class="MsoNormal">
+	有关司法机关之指示行事。由此造成账户冻结或款项转移而涉及您的合法权益时，您应
+</p>
+<p class="MsoNormal">
+	及时主动向本公司、银行或有关司法机构提供有关交易证据，必要时您应就您提供的证
+</p>
+<p class="MsoNormal">
+	据向银行或有关司法机构进行说明，如未能提供真实有效的交易证据，您应独立承担由
+</p>
+<p class="MsoNormal">
+	此造成的一切损失。
+</p>
+<p class="MsoNormal">
+	<span>    </span>（十八）本公司有权利使用您在本公司平台发生交易的数据进行汇总和展现，但默认
+</p>
+<p class="MsoNormal">
+	强制公开的部分仅限于汇总数据，您有权选择公开和使用本公司提供的其他服务分享更
+</p>
+<p class="MsoNormal">
+	多您认为可以被分享的数据，本公司对数据公开造成的影响不承担任何责任。
+</p>
+<p class="MsoNormal">
+	<span>    </span>五、赔偿责任限制
+</p>
+<p class="MsoNormal">
+	<span>    </span>（一）因下列原因，致使您无法使用本服务或造成您损失的，本公司将不承担任何责
+</p>
+<p class="MsoNormal">
+	任：本公司制定且预先通知的系统停机维护期间；因电信机线设备原因以致发生错误、
+</p>
+<p class="MsoNormal">
+	迟滞中断或不能传递；因台风、地震、海啸、洪水、停电、战争、电脑黑客等不可抗力
+</p>
+<p class="MsoNormal">
+	之因素，造成本公司系统障碍不能正常执行业务。
+</p>
+<p class="MsoNormal">
+	<span>    </span>（二）您使用本服务将存在一定的风险，该等风险包括但不限于：您的用户账户和密
+</p>
+<p class="MsoNormal">
+	码被他人冒用、盗用、或有其他任何未经合法授权之情形发生；或不法分子盗用您的银
+</p>
+<p class="MsoNormal">
+	行卡等。这些风险均会给您造成经济损失，除非可证明本公司对损失的形成存在故意或
+</p>
+<p class="MsoNormal">
+	重大过失，本公司将不承担任何责任。
+</p>
+<p class="MsoNormal">
+	<span>    </span>六、隐私保护
+</p>
+<p class="MsoNormal">
+	您同意使用您的真实姓名、手机号码，作为您使用本服务支付他人或他人支付您的凭
+</p>
+<p class="MsoNormal">
+	证。
+</p>
+<p class="MsoNormal">
+	<span>   </span>七、准据法与管辖法院
+</p>
+<p class="MsoNormal">
+	本服务条款之解释与适用，以及与本服务条款有关的争议，均应依照中华人民共和国
+</p>
+<p class="MsoNormal">
+	法律予以处理，并由本公司所在地的中华人民共和国法院管辖。
+</p>
+<p class="MsoNormal">
+	<span> </span>
+</p>
+<p class="MsoNormal">
+	<span> </span>
+</p>
+<p class="MsoNormal">
+	<span> </span>
+</p>
+<p class="MsoNormal">
+	<span> </span>
+</p>
+<p class="MsoNormal" align="center" style="text-align:center;font-size=16px">
+	<b>证券交易风险提示书</b><b></b>
+</p>
+<p class="MsoNormal" align="center" style="text-align:center;">
+	<b> </b>
+</p>
+<p class="MsoNormal">
+	<span>    </span>在进行证券交易时，可能会获得较高的投资收益，但同时也存在着较大的证券投资风险。为了使投资者更好地了解其中的风险，根据有关证券交易法律法规和证券交易所业务规则，特提供风险揭示书，请认真详细阅读。投资者从事证券投资存在如下风险：<span> </span>
+</p>
+<p class="MsoNormal">
+	<span>1</span>、宏观经济风险：由于我国宏观经济形势的变化以及周边国家、地区宏观经济环境和周边证券市场的变化，可能会引起国内证券市场的波动，使投资者存在亏损的可能，投资者将不得不承担由此造成的损失。<span> </span>
+</p>
+<p class="MsoNormal">
+	<span>2</span>、政策风险：有关证券市场的法律、法规及相关政策、规则发生变化，可能引起证券市场价格波动，使投资者存在亏损的可能，投资者将不得不承担由此造成的损失。<span> </span>
+</p>
+<p class="MsoNormal">
+	<span>3</span>、上市公司经营风险：由于上市公司所处行业整体经营形势的变化；上市公司经营管理等方面的因素，如经营决策重大失误、高级管理人员变更、重大诉讼等都可能引起该公司证券价格的波动；由于上市公司经营不善甚至于会导致该公司被停牌、摘牌，这些都使投资者存在亏损的可能。<span> </span>
+</p>
+<p class="MsoNormal">
+	<span>4</span>、技术风险：由于交易撮合及行情揭示是通过电子通讯技术和电脑技术来实现的，这些技术存在着被网络黑客和计算机病毒攻击的可能，由此可能给投资者带来损失。<span> </span>
+</p>
+<p class="MsoNormal">
+	<span>5</span>、不可抗力因素导致的风险：诸如地震、火灾、水灾、战争等不可抗力因素可能导致证券交易系统的瘫痪；证券营业部无法控制和不可
+</p>
+<p class="MsoNormal">
+	<span> </span>
+</p>
+<p class="MsoNormal">
+	<span> </span>
+</p>
+<p class="MsoNormal">
+	<span> </span>
+</p>
+<p class="MsoNormal">
+	预测的系统故障、设备故障、通讯故障、电力故障等也可能导致证券交易系统非正常运行甚至瘫痪，这些都会使投资者的交易委托无法成交或者无法全部成交，投资者将不得不承担由此导致的损失。
+</p>
+<p class="MsoNormal">
+	<span> 6</span>、其他风险：<span> </span>
+</p>
+<p class="MsoNormal" style="margin-left:0cm;text-indent:0cm;">
+	<span>（1）</span>由于投资者密码失密、操作不当、投资决策失误等原因可能会使投资者发生亏损，该损失将由投资者自行承担；在投资者进行证券交易中他人给予投资者的保证获利或不会发生亏损的任何承诺都是没有根据的，类似的承诺不会减少投资者发生亏损的可能。<span> </span>（<span>2</span>）网上交易、热键操作完毕，未及时退出，他人进行恶意操作而造成的损失；其中网上交易未及时退出还可能遭遇黑客攻击，从而造成损失。
+</p>
+<p class="MsoNormal">
+	<span> </span>
+</p>
+<p class="MsoNormal">
+	<span> </span>
+</p>
+<p class="MsoNormal">
+	<span> </span>
+</p>
+<p class="MsoNormal" align="center" style="text-align:center;">
+	郑重提示：入市有风险，交易须谨慎
+</p>
+                                         </div>
+                                     <div class="en-row">
+                                          <span class="tui-button tui-button-primary " style="width:80%; position: absolute;
+    bottom: 5%;margin-left:5%" id="close">同意并继续</span>
+                                      </div>
+                                  </div>
+                         
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+<!--<script type="text/javascript" src="http://qifanweb.cn/17/zznbd/theme/default/images/jquery.js"></script>-->
+<script>
+ 
+     $(function(){
+      $(document).on('click','#protocol',function(){
+         $(".tan").css("display","block");
+      });
+      $(document).on('click','#close',function(){
+            $(".tan").css("display","none");
+      })
+        $('#protocol').click(function(){
+           $(".tan").css("display","block");
+        })
+          $(function(){
+         $('#close').click(function(){
+        //     alert('11');
+           $(".tan").css("display","none");
+        }) 
+     }) 
+
+     })
+  
+  </script>
+<script>
+ 
+
+    function upload(){
+         $(".upload1").css("display","block");
+
+
+
+    }
+     function upload1(){
+   
+        $(".upload2").css("display","block");
+
+    }
+      function upload2(){
+   
+        $(".upload3").css("display","block");
+
+    }
+  
+  </script>
+  <script type="text/javascript">
+    
+    ;(function($){
+      $.fn.placeholder = function(options){
+      var opts = $.extend({}, $.fn.placeholder.defaults, options);
+      var isIE = document.all ? true : false;
+      return this.each(function(){
+      var _this = this,
+      placeholderValue =_this.getAttribute("placeholder"); //缓存默认的placeholder值
+      if(isIE){
+      _this.setAttribute("value",placeholderValue);
+      _this.onfocus = function(){
+      $.trim(_this.value) == placeholderValue ? _this.value = "" : '';
+      };
+      _this.onblur = function(){
+      $.trim(_this.value) == "" ? _this.value = placeholderValue : '';
+      };
+      }
+      });
+      };
+      })(jQuery);
+    
+  </script>
+  <script type="text/javascript">
+  
+   $("input").placeholder();
+  
+
+
+  </script>
+
+
+     <script>
+
+        function uploadFile(num) {
+            $("body").append("<div id='newlayer' class=\"overlay\"></div>");
+            $("body").append("" +
+            "<div id='newwindow' class=\"newwindow\">" +
+            "<div id='shut' class='close'>X</div>" +
+            "<div class='caption'>" +
+            "<h5>请选择上传的图</h5>" +
+            "<form id=\"uploadFrom\" action=\"/apply/uploadfiles.html\" method=\"post\" target=\"tarframe\" enctype=\"multipart/form-data\">" +
+            "<input type=\"file\" id=\"upload_file\" name=\"upload\">" +
+	    "<input type='hidden' name='num' value='" + num + "' ><br>" +
+            "<input type='submit' id='submitId' value='上传'  class='btn btn-large btn-primary'>" +
+            "</form>" +
+            "<iframe src='' width='0' height='0' style=\"display:none;\" name=\"tarframe\">" +
+            "</iframe>" +
+            "</div>" +
+            "</div>");
+            $("#shut").click(function () {
+                $("#newlayer").remove();
+                $("#newwindow").remove();
+            });
+        }
+
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $("#upload_file").change(function () {
+                $("#uploadFrom").submit();
+            });
+        });
+	function stopSend(num, img, img_path) {
+            $("#newlayer").remove();
+            $("#newwindow").remove();
+
+            $("#img_image" + num).val(img_path);
+            $(".img_image" + num).attr("src", img);
+        }
+    </script>
+
+
+

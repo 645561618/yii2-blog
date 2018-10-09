@@ -1,0 +1,30 @@
+            {% if  App.user.id %}<div id="main-menu">
+                <ul class="nav nav-tabs">
+                  {% for menu_k,menu in App.user.getTopMenu() %}
+                    <li class=" {% if menu_name == menu_k %}active{% endif %}" style="{{ menu.style }}"><a href="/{{ menu.route }}"><i class="glyphicon glyphicon-{{ menu.icon }}"></i> <span>{{ menu.name }}</span></a></li>
+                {% endfor %}
+                </ul>
+            </div>{% endif %}
+<div id="sidebar-nav">
+      <ul class="nav nav-list" id="dashboard-menu"><!--for value in this.context.sidebars-->
+        {% if sidebar_name is not empty %}
+        {% for key,value in App.user.getSubMenu(menu_name) %}
+            {% if value.subs_son is defined %}
+                <li>
+                    <a href="javascript:;" onclick="showList('{{ key }}');"><i class="icon-tasks"></i> <span class="glyphicon glyphicon-plus" id="list_k{{ key }}">&nbsp;<b>{{ value.name }}</b></span></a>
+                    {% for k,v in value.subs_son %}
+                    {% set sidebar_route = v.route|split('/') %}
+                    <li class="theme-mobile-hack-{{ key }} {% if sidebar_name == v.name %}cur {% endif %}" style="display:none;">
+                        <a href="/{{ v.route }}"><i class="icon-tasks"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{ v.name }}</span></a>
+                    </li>
+                    {% endfor %}
+                </li>
+            {% else %}
+                <li class=" theme-mobile-hack {% if sidebar_name == value.name %}cur {% endif %}" >
+                    <a href="/{{ value.route }}"><i class="icon-tasks"></i> <span>{{ value.name }}</span></a>
+                </li>
+            {% endif %}
+        {% endfor %}
+        {% endif %}
+       </ul>
+</div>

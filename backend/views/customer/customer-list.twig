@@ -1,0 +1,35 @@
+{% set sidebar_name = "客户列表" %}
+{% set menu_name = "customer" %}
+{% include "@app/views/layouts/header.twig" %}
+{% block content %}
+<div class="content">
+    <h3>客户列表</h3>
+
+    {{
+    widget('\\yii\\grid\\GridView', {
+    'filterModel':model,
+    'dataProvider':dataProvider,
+    'columns':{
+    1:'username',
+    2:'phone',
+    3:'time',
+    5:'money',
+    6:'style',
+    7:'created',
+    8:{
+	'attribute':'客户状况',
+        'format':'raw',
+        'value':model.getStatus(),
+    },
+    4:{
+    'class':'\\common\\extensions\\Grid\\CustomerGridActionColumn',
+    'template':'{update-customer}{delete-customer}',
+    'header':'操作',
+    },
+    }})
+
+    }}
+
+</div>
+{% endblock %}
+

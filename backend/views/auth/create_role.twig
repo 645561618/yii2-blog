@@ -1,0 +1,32 @@
+{% set sidebar_name = "创建角色" %}
+{% set menu_name = "managers" %}
+<div class="content">
+    <h4>创建角色或权限Create New Item*</h4>
+    {% if show_error is not empty %}
+        <div class="alert alert-error message">
+            <button data-dismiss="alert" class="close" type="button">×</button>
+            <strong>{{ show_error }}</strong>
+        </div>
+    {% endif %}
+{% block content %}
+<div class="container">
+    <div class="srbacForm">
+        <p> Fields with* <span class="required">*</span> are required*. </p>
+        {% set form = activeform.begin({'id':'create-form','options':{'enctype':'multipart/form-data'}}) %}
+            {{ form.field(model,'name').label(null,{"class":'col-sm-2 control-label'})|raw }}
+            {% if isNew == true %}
+                {{ form.field(model,'type').dropDownList({'1':'Role','2':'Operation'}).label(null,{"class":'col-sm-2 control-label'})|raw }}
+            {% else %}
+                {{ form.field(model,'type').dropDownList({'1':'Role','2':'Operation'},{'disabled':'disabled'}).label(null,{"class":'col-sm-2 control-label'})|raw }}
+            {% endif %}
+            {{ form.field(model,'description').textArea({'row':2}).label(null,{"class":'col-sm-2 control-label'})|raw }}
+            <!-- {{ form.field(model,'rule_name').label(null,{"class":'col-sm-2 control-label'})|raw }} -->
+            {{ form.field(model,'data').textArea({'row':2}).label(null,{"class":'col-sm-2 control-label'})|raw }}
+            <div class="form-group">
+                    <input type='submit' value='提交' class='btn btn-large btn-primary' /> 
+            </div>
+        {{ void(form.end()) }}
+    </div>
+</div>
+{% endblock %}
+</div>

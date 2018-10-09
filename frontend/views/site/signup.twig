@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="http://c.wedpl.com/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <title>注册-结婚计划网</title>
+    <link rel="stylesheet" type="text/css" href="/css/login_reset.css">
+    <link rel="stylesheet" type="text/css" href="/css/login_style.css">
+    <script src="/js/jQuery.js" type="text/javascript"></script>
+    <script src="/js/script.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="login_head"><a href="http://www.wedpl.com"><img src="/images/logo.png"></a></div>
+<div class="login_wrap">
+    <div class="login_con">
+        <div class="weixinbox"><span><img src="" alt=""></span></div>
+        <div class="info_box">
+            <div class="info_tit"><span><a href="/site/login.html">登录</a></span><span class="on"><a href="/site/signup.html">注册</a></span></div>
+            <div class="info_con">
+                <div class="reg_cont">
+                    <form action="/site/signup.html" method="post" id="sign_form">
+			<p class="reg_name"><input type="text" id="reg_username" name="Signup[username]" placeholder="用户名"></p>
+                        <p class="reg_name"><input type="text" id="reg_phone" name="Signup[phone]" placeholder="输入手机号"></p>
+                        <p class="reg_password"><input type="password" id="reg_password"  name="Signup[password]" placeholder="密码"></p>                   
+                        <p class="reg_password"><input type="password" id="reg_pwd" name="Signup[password]" placeholder="重复密码"></p>
+			<p class="reg_message"><span class="warn_btn"></span><span class="reg_messagewarm"></span></p>
+			<p class="reg_btn" id="sign_sub">立即注册</p>
+                    </form>
+                </div>
+                <div class="yy-yzm" id="yy_unbind"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="login_foot">
+	<a href="http://nb.wedpl.com/hunsha/">婚纱摄影</a> | <a href="http://nb.wedpl.com/ertong/">儿童摄影</a> | <a href="http://nb.wedpl.com/hunqing/">婚庆服务</a> | <a href="http://nb.wedpl.com/hunshalifu/">婚庆礼服</a> | <a href="http://nb.wedpl.com/jiudian/">婚庆酒店</a> | <a href="http://nb.wedpl.com/shoushi/">婚戒首饰</a>
+    <p>© CopyRight 宁波海曙火龙果文化传媒有限公司 All Rights Resrved&nbsp;&nbsp;&nbsp;&nbsp;版权所有&nbsp;&nbsp;&nbsp;&nbsp;浙ICP备15038951号-1&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</div>
+</body>
+</html>
+ <script>
+	$(function(){
+		$('#sign_sub').click(function(){
+			var username = $('#reg_username').val();
+			var phone = $('#reg_phone').val();
+			var password = $('#reg_password').val();
+			var pwd = $('#reg_pwd').val();
+			if(username==''){
+				$('.reg_messagewarm').html('用户名不能为空')
+		                $('.reg_message').show();
+			}else if(phone==''){
+				$('.reg_messagewarm').html('手机号不能为空')
+                                $('.reg_message').show();
+			}else if(password==''){
+				$('.reg_messagewarm').html('密码不能为空')
+                                $('.reg_message').show();
+
+			}else if(pwd == ''){
+				$('.reg_messagewarm').html('重复密码不能为空')
+                                $('.reg_message').show();
+			}else{
+				if(password==pwd){
+					$("#sign_form").submit();
+                                }else{
+                                        $('.reg_messagewarm').html('密码不一致')
+                                        $('.reg_message').show();
+                                }
+
+			}
+		})
+		
+	})
+
+</script>
+

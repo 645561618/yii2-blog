@@ -1,0 +1,33 @@
+{% set sidebar_name = "添加客户信息" %}
+{% set menu_name = "customer" %}
+{% include "@app/views/layouts/header.twig" %}
+{% block content %}
+<div class="content">
+{% if isNew == true %}
+    <h3>添加客户信息</h3>
+{% else %}
+    <h3>编辑客户信息</h3>
+{% endif %}
+    {% set form = form_begin({'id':'create-form','layout':'horizontal','options':{'enctype':'multipart/form-data'}}) %}
+    <div id="uploads" class="form-group ">
+        {{ form.field(model, 'username')|raw }}
+        {{ form.field(model, 'phone')|raw }}
+        {# { form.field(model, 'time',{'inputOptions':{'class':'form-control' }}).label('婚期',{'class':'control-label col-lg-3'}).widget('\\kartik\\daterange\\DateRangePicker',{'convertFormat':true,'pluginOptions':{'format':'Y-m-d H:i:s','separator':' - ','opens':'right'}})|raw }#}
+
+        {# { form.field(model, 'time').widget('kartik\\widgets\\DateTimePicker', {})|raw } #}
+	{{ form.field(model, 'time')|raw }}
+        {{ form.field(model, 'money')|raw }}
+        {{ form.field(model, 'style')|raw }}
+        {{ form.field(model, 'remark').textarea()|raw }}
+    </div>
+    <div class="form-group ">
+        <label for="dailylesson-params" class="control-label col-sm-3"></label>
+        <div class="col-sm-6">
+            <input type='submit' value='提交' class='btn btn-large btn-primary' />
+        </div>
+    </div>
+    {{ void(form.end()) }}
+
+</div>
+{% endblock %}
+

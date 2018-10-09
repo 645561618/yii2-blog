@@ -1,0 +1,142 @@
+{% set sidebar_name = "添加文章" %}
+{% set menu_name = "blog" %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="/statics/css/upload.css">
+<script type="text/javascript" src="/js/SimpleHtmlTree.js"></script>
+<div class="content">
+    <h4>添加文章</h4>
+    {% include "@app/views/layouts/notice.twig" %}
+    {% set form = activeform.begin({'id':'create-form','layout':'horizontal','options':{'enctype':'multipart/form-data'}}) %}
+    <div id="uploads" class="form-group ">
+	<!--<div class="form-group">
+            <label for="disease-name_cn" class="control-label col-sm-3">封面图 :(200*200)</label>
+            <div class="col-sm-6 top_image">
+                <span style="color:red"></span>
+                <img class="fl" align="absmiddle" alt="Image" title="Image" onClick="uploadFile();"
+                     src="/images/insert_image.png"/><br/>
+                <input type="hidden" id="img_image" name="ArticleBack[img]">
+                <img alt="" width="200px" height="200px" class="img_image" src="">
+            </div>
+        </div>-->
+	<div class="form-group field-articleback-img">
+		<label class="control-label col-sm-3" for="articleback-img">封面图</label>
+		<div class="col-sm-6">
+			<div class="per_upload_con">
+				<div class="per_real_img img">
+					{% if isNew == "true" %}
+						<img src="http://img.hxinq.com/article/upload.png" class="img_image" onClick="uploadFile();" style="background:#f2f2f2;">
+					{% else %}
+						<img src="{{staticUrl}}{{model.img}}" class="img_image">
+					{% endif  %}
+				</div>
+    				<div class="per_upload_img" style="">图片上传</div>
+    				<div class="per_upload_text">
+        				<p class="upbtn"><a id="img" href="javascript:;" class="btn btn-success green choose_btn" onClick="uploadFile();">选择图片</a></p>
+        				<p class="rule">仅支持文件格式为jpg、jpeg、png<br>大小在5MB以下的文件</p>
+    				</div>
+				{% if isNew == "true" %}
+					<input type="hidden" id="img_image" name="ArticleBack[img]">
+				{% else %}
+					<input type="hidden" id="img_image" name="ArticleBack[img]" value="{{model.img}}">
+				{% endif  %}
+			</div>
+			<div class="help-block help-block-error "></div>
+		</div>
+	</div>
+
+        {{ form.field(model, 'title')|raw }}
+        {#{ form.field(model,'desc').widget('\\mihaildev\\ckeditor\\CKEditor',{'name':'desc','editorOptions':{'preset':'base','inline':false,'filebrowserImageUploadUrl':'/blog/upload'}})|raw.label(null,{'class':'control-label col-lg-3'})|raw }#}
+        {#{ form.field(model,'desc').widget('\\ijackua\\lepture\\Markdowneditor')|raw.label(null,{'class':'control-label col-lg-3'})|raw }#}
+        {#{ form.field(model,'desc').widget('\\kartik\\markdown\\MarkdownEditor',{'name':'desc','options':{'readonly':false,'class':'kv-md-editor','useUploadImage':'true'}})|raw.label(null,{'class':'control-label col-lg-3'})|raw }#}
+        {{ form.field(model,'desc').widget('\\yidashi\\markdown\\Markdown',{'name':'desc','options':{'url':'/blog/upload'}})|raw.label(null,{'class':'control-label col-lg-3'})|raw }}
+        {#{ form.field(model,'cid').dropDownList(FirstCate,{'onchange':'getSonCategory(this.value,\'petcategoryback-id\')'}).label('一级分类',{'class':'control-label col-lg-3'})|raw }#}
+        {#{ form.field(models,'id').dropDownList({'0':'--请选择二级标签--'}).label('二级标签',{'class':'control-label col-lg-3'})|raw }#}
+	{#{ form.field(model,'tags').widget('\\kartik\\select2\\Select2',{'data':Tags,'options':{'multiple': true,'placeholder' : '请选择标签'}})|raw }#}
+	{{ form.field(model,'cid').widget('\\kartik\\select2\\Select2',{'data':FirstCate,'options':{'placeholder':'请选择分类'},'pluginOptions':{'allowClear':true}})|raw }}
+	{{ form.field(model,'tid').widget('\\kartik\\select2\\Select2',{'data':Tags,'options':{'placeholder':'请选择标签'},'pluginOptions':{'allowClear':true}})|raw }}
+	<!--<div class="form-group">
+                    <label class="col-sm-3 control-label">选择分类</label>
+                    <div class="col-lg-3">
+                        {#{ widget('\\kartik\\select2\\Select2',{
+			'model':model,
+			'attribute':'tags',
+                        'data':Tags,
+                        'options':{'placeholder':'请选择标签...'},
+                        'pluginOptions':{'allowClear':true},
+                        }) }#}
+                    </div>
+                    <span style="color:red; line-height: 34px;">只能选二级分类</span>
+                </div>-->
+        {{ form.field(model, 'weight')|raw }}
+	{{ form.field(model,'is_recommend').widget('kartik\\widgets\\SwitchInput')|raw }}
+    </div>
+    <div class="form-group ">
+        <label for="dailylesson-params" class="control-label col-sm-3"></label>
+        <div class="col-sm-6">
+            <input type='submit' value='提交' class='btn btn-large btn-primary' />
+        </div>
+    </div>
+    {{ void(form.end()) }}
+</div>
+<script type="text/javascript">
+    function getSonCategory(id,pid){
+        $.ajax({
+            type:'get',
+            url:"/blog/son-cate?id="+id,
+            data:"",
+            dataType:'json',
+            success:function(data){
+                var html = "<option value='0'>--请选择--</option>";
+                if(data != null){
+                  var len = data.length;
+                  for (var i= 0;i<len;i++){
+                    html += "<option value='"+data[i]["id"]+"'>"+data[i]["title"]+"</option>"; 
+                  }
+                 $("#"+pid).html(html);
+                }
+            }
+        });
+    }
+</script>
+
+<script>
+
+        function uploadFile() {
+            $(".content").append("<div id='newlayer' class=\"overlay\"></div>");
+            $(".content").append("" +
+            "<div id='newwindow' class=\"newwindow\">" +
+            "<div id='close' class='close'>X</div>" +
+            "<div class='caption'>" +
+            "<h5>请选择上传的图</h5>" +
+            "<form id=\"uploadFrom\" action=\"/blog/upload-lable\" method=\"post\" target=\"tarframe\" enctype=\"multipart/form-data\">" +
+            "<input type=\"file\" id=\"upload_file\" name=\"upload\">" +
+            "<input type='submit' id='submitId' value='上传'  class='btn btn-large btn-primary'>" +
+            "</form>" +
+            "<iframe src='' width='0' height='0' style=\"display:none;\" name=\"tarframe\">" +
+            "</iframe>" +
+            "</div>" +
+            "</div>");
+            $("#close").click(function () {
+                $("#newlayer").remove();
+                $("#newwindow").remove();
+            });
+        }
+
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $("#upload_file").change(function () {
+                $("#uploadFrom").submit();
+            });
+        });
+
+        function stopSend( img, img_path) {
+            $("#newlayer").remove();
+            $("#newwindow").remove();
+
+            $("#img_image").val(img_path);
+            $(".img_image").attr("src", img);
+        }
+    </script>
+
+{% endblock %}

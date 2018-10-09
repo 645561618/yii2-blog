@@ -1,0 +1,71 @@
+<link href="/statics/css/site.css">
+<div class="content">
+{% block content %}
+{% if id ==1 %}
+	<div class="col-sm-3" style="margin-bottom:20px;">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-primary pull-right">系统管理</span>
+                    <h5>后台用户</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">1</h1>
+                    <small>位</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3" style="margin-bottom:20px;">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-danger pull-right">文章管理</span>
+                    <h5>博客文章</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">2</h1>
+                    <small>篇</small>
+                </div>
+            </div>
+        </div>
+	<div class="col-sm-3" style="margin-bottom:20px;">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-primary pull-right">微信粉丝</span>
+                    <h5>关注粉丝</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">3</h1>
+                    <small>位</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3" style="margin-bottom:20px;">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-danger pull-right">博客友链</span>
+                    <h5>友情链接</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">4</h1>
+                    <small>个</small>
+                </div>
+            </div>
+        </div>
+
+{% else %}
+
+<div class="site-index">
+
+    <div class="jumbotron">
+        <h1>后台管理系统!</h1>
+
+
+        
+    </div>
+
+    
+</div>
+{% endif %}
+    
+{% endblock %}
+</div>
+

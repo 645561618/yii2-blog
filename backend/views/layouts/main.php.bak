@@ -1,0 +1,57 @@
+<?php
+
+/* @var $this \yii\web\View */
+/* @var $content string */
+
+use backend\assets\AppAsset;
+use yii\helpers\Html;
+use yii\bootstrap\Nav;
+use yii\bootstrap\NavBar;
+use yii\widgets\Breadcrumbs;
+use common\widgets\Alert;
+
+$menu = require(__DIR__.'/../../config/menu.php');
+AppAsset::register($this);
+?>
+<?php $this->beginPage() ?>
+<!DOCTYPE html>
+<html lang="<?= Yii::$app->language ?>">
+<head>
+    <meta charset="<?= Yii::$app->charset ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?= Html::csrfMetaTags() ?>
+    <title><?= Html::encode($this->title) ?></title>
+    <?php $this->head() ?>
+    </style>
+</head>
+<body>
+<?php $this->beginBody() ?>
+
+    
+        <?= $content ?>
+
+
+<?php $this->endBody() ?>
+<script src="/assets/daf5dd00/jquery.js"></script>
+</body>
+</html>
+<?php $this->endPage() ?>
+
+<script type="text/javascript">
+function showList(num){
+    $(".theme-mobile-hack-"+num).toggle();
+    var valc = $("#list_k"+num).attr("class");
+    if(valc == "glyphicon glyphicon-plus"){
+        $("#list_k"+num).attr("class","glyphicon glyphicon-minus");
+    }else{
+        $("#list_k"+num).attr("class","glyphicon glyphicon-plus");
+    }
+}
+$(function(){
+    var val = $(".cur").attr("class");
+    var array = val.split(" ");
+    $("."+array[0]).show();
+    var num = array[0].split("-");
+    $("#list_k"+num[3]).attr("class","glyphicon glyphicon-minus");
+});
+</script>

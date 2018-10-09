@@ -1,0 +1,35 @@
+{% set menu_name = "blog" %}
+{% set sidebar_name = "分类列表" %}
+<div class="content">
+    <h3>分类列表</h3>
+    <hr class="darken">
+{% block content %}
+{{
+    widget('\\kartik\\grid\\GridView', {
+            'id':'app-grid',
+            'dataProvider':dataProvider,
+	    'hover':true,
+            'columns':{
+                1:'id',
+                2:'title',
+                3:'sort',
+		4:{
+			'attribute':'状态',
+			'value':model.getStatus(),
+		},
+                5:{
+			'attribute':'创建时间',
+		  	'value':model.getTime(),
+		},
+		6:{
+		    'class':'\\common\\extensions\\Grid\\GridActionColumn',
+		    'template':'{update-category}',
+		    'header':'操作',
+	        },
+
+}})
+
+}}
+{% endblock %}
+</div>
+

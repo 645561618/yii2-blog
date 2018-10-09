@@ -3,10 +3,6 @@ Yii 2 Advanced Project －博客
 
 个人博客地址：ｗｗｗ.hxinq.com
 
-后台地址：b.hxinq.com
-
-        后台账号：visitor
-        后台账号: visitor
         
 前台：
 -------------------

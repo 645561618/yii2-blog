@@ -15,10 +15,11 @@ Yii 2 Advanced Project －博客
 
 后台:
 -------------------
-   
+![image](https://raw.githubusercontent.com/645561618/yii2-blog/master/web/images/2.png "博客")
 
 目录：
 -------------------
+![image](https://raw.githubusercontent.com/645561618/yii2-blog/master/web/images/3.png "博客")
 
 ```
 common

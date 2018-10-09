@@ -10,7 +10,8 @@ Yii 2 Advanced Project －博客
         
 前台：
 -------------------
-![image](https://github.com/645561618/yii2-blog/web/images/1.png "博客")
+![image](https://github.com/645561618/yii2-blog/master/web/images/1.png "博客")
+
 
 后台:
 -------------------

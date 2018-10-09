@@ -1,7 +1,7 @@
 Yii 2 Advanced Project －博客
 ===============================
 
-个人博客地址：ｗｗｗ.hxinq.com
+个人博客地址：www.hxinq.com
 
         
 前台：

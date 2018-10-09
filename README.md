@@ -1,6 +1,17 @@
 Yii 2 Advanced Project －博客
 ===============================
 
+个人博客地址：ｗｗｗ.hxinq.com
+后台地址：b.hxinq.com
+        后台账号：visitor
+        后台账号: visitor
+前台：
+-------------------
+
+
+后台:
+-------------------
+   
 
 目录：
 -------------------
@@ -39,3 +50,5 @@ frontend
 vendor/                  contains dependent 3rd-party packages
 environments/            contains environment-based overrides
 ```
+
+

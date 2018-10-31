@@ -37,7 +37,7 @@ class HomeController extends FrontendController
 				
 	public function actionIndex(){
 		if(isset($_GET['plat']) && isset($_GET['code']) && isset($_GET['state'])){
-			if(base64_decode(trim($_GET['state'])) == base64_decode(Yii::$app->session['state'])){
+			if(trim($_GET['state']) == Yii::$app->session['state']){
 				$plat= base64_decode($_GET['plat']);
 				$receive_params = $_GET;
         			unset($receive_params['plat']);
@@ -45,11 +45,8 @@ class HomeController extends FrontendController
         			if($result){
 					$session = Yii::$app->session;			
 					$session['UserLogin'] = $result;
-					//echo "<pre>";
-					//print_r($result);exit;
 			        	return $this->redirect("/");
         			}else{
-					//echo 111;exit;
 			        	return $this->redirect("/");
 				}
 			}
@@ -57,7 +54,31 @@ class HomeController extends FrontendController
 		return $this->render('index');
 	}
 
+	//github登录
+	public function actionGithubLogin(){
+		$url  = Yii::$app->platform->getPlatformLoginUrl("github");
+                return $this->redirect($url);
+	}
 
+	//github回调
+	public function actionCallback()
+	{
+		if(trim($_GET['state']) == Yii::$app->session['g_state']){
+			$plat= base64_decode($_GET['plat']);
+			$receive_params = $_GET;
+			unset($receive_params['plat']);
+			$result = Yii::$app->platform->receiveCallback($plat, $receive_params);
+			if($result){
+				$session = Yii::$app->session;
+				$session['UserLogin'] = $result;
+				return $this->redirect("/");
+			}else{
+				return $this->redirect("/");
+			}
+		}
+
+	}
+	
 	//文章详情
 	public function actionDetail($id){
 		if($id){

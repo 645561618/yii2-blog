@@ -7,5 +7,8 @@ return [
           'qq'=>[
                 'className'=>'QQAuth',
           ],
+	  'github'=>[
+                'className'=>'GithubAuth',
+          ],
     ],
 ];

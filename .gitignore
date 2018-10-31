@@ -1,4 +1,8 @@
 # composer vendor dir
+composer.json
+composer.lock
 /vendor
-/frontend/runtime/
-/backend/runtime/
+frontend/runtime/
+backend/runtime/
+frontend/web/assets/
+backend/web/assets/

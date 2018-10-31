@@ -29,7 +29,7 @@
 	"yiisoft/yii2-gii": "~2.0.0",
 	"yiisoft/yii2-jui":"2.0.4",
 	"kartik-v/yii2-datecontrol": "dev-master",
-	"phpoffice/phpexcel": "1.8.0",
+	"phpoffice/phpexcel": "1.8.x-dev",
 	"sammaye/yii2-solr":"*",
         "ijackua/yii2-lepture-markdown-editor-widget": "dev-master",
         "yidashi/yii2-bootstrap-markdown": "*",
@@ -41,7 +41,9 @@
 	"yiisoft/yii2-redis":"^2.0@dev",
 	"hightman/xunsearch":"*@beta",
         "aliyuncs/oss-sdk-php": "dev-master",
-        "2amigos/yii2-qrcode-helper": "*"
+        "2amigos/yii2-qrcode-helper": "*",
+        "yurunsoft/yurun-oauth-login": "~2.0",
+        "kartik-v/yii2-export": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

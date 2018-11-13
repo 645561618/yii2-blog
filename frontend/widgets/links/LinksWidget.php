@@ -11,7 +11,7 @@ class LinksWidget extends Widget
     
     public function run()
     {
-    	$model = Links::find()->where(['status'=>1])->orderBy("sort ASC,created DESC")->all();    
+    	$model = Links::find()->where(['status'=>1])->orderBy("sort DESC,created asc")->all();    
         return $this->render('index',['model'=>$model]);
     }
   

@@ -966,6 +966,19 @@ class GridActionColumn extends ActionColumn
             };
         }
 
+	if (!isset($this->buttons['delete-links'])) { 
+            $this->buttons['delete-links'] = function ($url, $model) {
+                return Html::a('<button class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i>&nbsp;删除</button>',"/blog/delete-links?id=".$model->id, [
+                    'title' => Yii::t('yii', 'Delete'),
+                    'data-confirm' => Yii::t('yii', '你确定要删除?'),
+                    'data-method' => 'post',
+                    'style'=>'margin:0 10px 0 10px',
+                ]);
+            };
+        }
+
+
+
 
 	 if (!isset($this->buttons['delete-manager'])) { 
             $this->buttons['delete-manager'] = function ($url, $model) {

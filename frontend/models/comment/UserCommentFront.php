@@ -34,10 +34,11 @@ class UserCommentFront extends UserComment{
 			    },
 			    'nickname'=>function($data){
 				 $Info = UserCenter::find()->where(['id'=>$data->comment_uid])->one();
-                                 if($Info){
+                                 if($Info->type==2){
+                                        return $Info->login;
+				 }else{
                                         return $Info->nickname;
-                                 }
-                                 return '';
+				 }
 			    },
 			    'content'=>'content',
 			    'create_time'=>function($data){

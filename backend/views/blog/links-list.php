@@ -37,18 +37,24 @@ $this->params['three_menu'] = '友链管理';
                 'title',
 		'url',
                 'sort',
+                'email',
                 [
                         'attribute'=>'状态',
                         'value'=>$model->getStatus(),
                         'format'=>'html',
                 ],
+		[
+			'attribute'=>'是否发送邮件',
+			'value'=>$model->sendLinkEmail(),
+			'format'=>'html',
+		],
                 [
                         'attribute'=>'创建时间',
                         'value'=>$model->getTime(),
                 ],
                 [
                     'class'=>'\\common\\extensions\\Grid\\GridActionColumn',
-                    'template'=>'{update-links}',
+                    'template'=>'{update-links}{delete-links}',
                     'header'=>'操作',
                 ],
         ],

@@ -29,7 +29,7 @@ class LinksBack extends Links{
     {           
         return [
             [['title','url','sort','status'], 'required'],
-            [['created','modify'],'safe'],
+            [['email','created','modify','is_send'],'safe'],
         ];
     }           
         
@@ -40,8 +40,10 @@ class LinksBack extends Links{
                 'url' => '链接',
                 'sort'=>'排序',
                 'status'=>'是否开启',
+		'email' => '邮件',		
 		'created' => '创建时间',		
 		'modify' => '修改时间',
+		'is_send' => '是否发送',
 
         ];
     }
@@ -75,6 +77,23 @@ class LinksBack extends Links{
 		}
 	};
     }
+
+    //发送友情链接邮件
+    public function sendLinkEmail(){
+	return function($data){
+		if($data->is_send==1){
+			return "已发送";
+		}else{
+			if(!empty($data->email)){
+				return "<a href='/blog/send-email?id=".$data->id."'>发送</a>";
+			}else{
+				return "<i style='color:red'>email为空</i>";
+			}
+		}
+	};
+    }
+
+
 
     public function updatelinks($data){
 	if($this->load($data) && $this->save()){

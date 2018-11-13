@@ -9,7 +9,7 @@ class Common{
 	//根据ip获取城市
 	public function taobaoIP($clientIP){
         	$taobaoIP = 'http://ip.taobao.com/service/getIpInfo.php?ip='.$clientIP;
-	        $IPinfo = json_decode(file_get_contents($taobaoIP));
+	        $IPinfo = json_decode(self::curl($taobaoIP));
         	$province = $IPinfo->data->region;
 	        $province = str_replace('省','',$province);
         	$city = $IPinfo->data->city;
@@ -48,6 +48,21 @@ class Common{
         return $result;
     }
 
+    //禁止包含在内容的字符
+    public function blockMessage($message) {
+        $block_string = array(
+            '\[\/url\]',
+            '<\/a>',
+            '\[\/link\]',
+            '\[\/img\]',);
+        foreach ($block_string as $v) {
+            if (preg_match("/({$v})/i", $message)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
    //特殊字符过滤
    public static function replaceSpecialChar($strParam)
@@ -55,6 +70,33 @@ class Common{
 	$regex = "/\/|\~|\!|\@|\#|\\$|\%|\^|\&|\*|\(|\)|\_|\+|\{|\}|\:|\<|\>|\?|\[|\]|\,|\.|\/|\;|\'|\`|\-|\=|\\\|\|/";
         return preg_replace($regex,"",$strParam);	
    }
+
+
+	//CURL 设置请求头和响应头（github API接口需要）
+	public static function curl($url){
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+		// 设置请求头, 有时候需要,有时候不用,看请求网址是否有对应的要求
+		$header[] = "Content-type: application/x-www-form-urlencoded";
+		$user_agent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36";
+		curl_setopt($ch, CURLOPT_HTTPHEADER,$header);
+		// 返回 response_header, 该选项非常重要,如果不为 true, 只会获得响应的正文
+		curl_setopt($ch, CURLOPT_HEADER, false);
+		// 是否不需要响应的正文,为了节省带宽及时间,在只需要响应头的情况下可以不要正文
+		curl_setopt($ch, CURLOPT_NOBODY, false);
+		// 使用上面定义的$user_agent
+		curl_setopt($ch, CURLOPT_USERAGENT,$user_agent);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+
+		curl_setopt($ch, CURLOPT_URL, $url);
+		$res =  curl_exec($ch);
+		// 获得响应结果里的：头大小
+		//$headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+		// 根据头大小去获取头信息内容
+		//$header = substr($res, 0, $headerSize);
+		curl_close($ch);
+		return $res;
+	}
 
 
 

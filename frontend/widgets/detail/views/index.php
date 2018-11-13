@@ -3,6 +3,14 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\LinkPager;
 ?>
+<style>
+pre{
+   	background: #282c34;
+}
+pre code{
+	color:#abb2bf;
+}
+</style>
 <div class="panel pannel-detail">
     <div class="detail-top">
 	<h2><?=Html::encode($model->title)?></h2>
@@ -29,7 +37,7 @@ use yii\widgets\LinkPager;
     var setMyBlog = {
         setCodeRow: function(){
             // 代码行号显示
-            var pre = document.getElementById(".article-detail pre code"); //选中需要更改的部分
+	    var pre = $(".article-detail pre code"); //选中需要更改的部分
             if(pre && pre.length){
                 pre.each(function() {
                     var item = $(this);

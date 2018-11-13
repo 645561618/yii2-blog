@@ -23,6 +23,7 @@ use common\models\UserReplyComment;
 use common\models\UserCenter;
 use common\models\Common;
 use common\components\Email;
+use backend\models\LinksBack;
 /**
  *  * Home controller
  */
@@ -265,7 +266,31 @@ class HomeController extends FrontendController
 		echo Yii::$app->redis->rPop('iphone10');
 	}
 	
-	
+	//提交友情链接
+	public function actionLinks()
+	{
+		if($_POST){
+			$name = strip_tags($_POST['name']);//过滤掉输入、输出里面的恶意标签,如<script></script>
+                        $name = trim(Common::replaceSpecialChar($name));
+                        $name = htmlspecialchars($name);//转义
+			$url = strip_tags($_POST['url']);
+			$email = strip_tags($_POST['email']); 
+			$model = LinksBack::find()->where(['email'=>$email])->one();
+			if(!$model){
+				$model = new LinksBack;
+			}	
+			$model->title = $name;
+			$model->url = $url;
+			$model->email = $email;
+			$model->created = time();
+			if($model->save(false)){
+				if(Email::LinksApplyEmail($model->title,$model->created,$model->url)){
+					echo json_encode(['status'=>1,'msg'=>'添加成功,稍后会以邮件的形式通知你']);exit;
+				}				
+			}
+		}
+		echo json_encode(['status'=>2,'msg'=>'请填写']);exit;
+	}	
 
 
 }

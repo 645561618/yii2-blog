@@ -40,7 +40,6 @@ class QQAuth extends PlatformChannelAbstract
 	{
 		$state = Yii::$app->session['state'] = base64_encode(md5(uniqid(rand(),true)));
 		$url = $this->request_url."response_type=code&client_id=".$this->client_id."&redirect_uri=".urlencode($this->getCallbackUrl())."&state=".$state; 
-		echo $url;exit;
         	return $url;
     	}
 

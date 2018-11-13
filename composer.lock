@@ -1425,28 +1425,33 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-markdown.git",
-                "reference": "cf172939cddf83c7136112b1647b2e3fd7518e18"
+                "reference": "ba9e8ecf30e7d3eda8df28c67f557e18520a0cee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-markdown/zipball/cf172939cddf83c7136112b1647b2e3fd7518e18",
-                "reference": "cf172939cddf83c7136112b1647b2e3fd7518e18",
+                "url": "https://api.github.com/repos/kartik-v/yii2-markdown/zipball/ba9e8ecf30e7d3eda8df28c67f557e18520a0cee",
+                "reference": "ba9e8ecf30e7d3eda8df28c67f557e18520a0cee",
                 "shasum": ""
             },
             "require": {
-                "kartik-v/yii2-krajee-base": "*",
-                "michelf/php-markdown": "*",
-                "michelf/php-smartypants": "*"
+                "kartik-v/yii2-krajee-base": ">=1.9",
+                "michelf/php-markdown": "~1.8",
+                "michelf/php-smartypants": "~1.8"
             },
             "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.3.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
-                    "kartik\\markdown\\": ""
+                    "kartik\\markdown\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD 3-Clause"
+                "BSD-3-Clause"
             ],
             "authors": [
                 {
@@ -1469,7 +1474,7 @@
                 "yii",
                 "yii2"
             ],
-            "time": "2016-12-19 21:37:42"
+            "time": "2018-11-05 12:29:49"
         },
         {
             "name": "kartik-v/yii2-mpdf",

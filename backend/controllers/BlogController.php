@@ -11,6 +11,7 @@ use backend\models\ArticleSearch;
 use backend\models\Upload;
 use backend\models\LinksBack;
 use common\models\Common;
+use common\components\Email;
 
 class BlogController extends BackendController{
 
@@ -427,7 +428,40 @@ EOF;
         	echo "排序更新成功";
     	}
 	
+	//删除友情链接
+	public function actionDeleteLinks($id)
+	{
+		if($id){
+			$model = LinksBack::findOne($id);
+			if($model->delete()){
+				Yii::$app->session->setFlash('success','链接删除成功');
+				return $this->redirect('/blog/links-list');
+			}
+		}
+		
+	}
 
+	//发送邮件
+	public function actionSendEmail($id)
+	{
+		if($id){
+			$model = LinksBack::findOne($id);
+			if($model){
+				$title = $model->title;
+				$time = $model->created;
+				$url = $model->url;
+				$email = $model->email;
+        	                if(Email::SendLinksEmail($title,$time,$url,$email)){
+					Yii::$app->session->setFlash('success','邮件发送成功');
+					$model->is_send=1;
+					if($model->save(false)){
+	                                	return $this->redirect('/blog/links-list');				
+					}
+				}
+				
+			}
+		}
+	}
 	
 	
 

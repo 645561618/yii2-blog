@@ -136,16 +136,73 @@ AppAsset::register($this);
 				</h4>
 			</div>
 			<div class="modal-body" style="text-align:center;">
-				<a href="/home/login"><img src="/images/login/qq.png"></a>&nbsp;&nbsp;
-				<a href="javascript:;" class="wx_login"><img src="/images/login/weixin.png"></a>
-				<a href="/home/github-login" class="wx_login"><img src="/images/login/github.jpg"></a>
+				<a href="/home/login"><img alt="黄信强博客" src="/images/login/qq.png"></a>&nbsp;&nbsp;
+				<a href="javascript:;" class="wx_login"><img alt="黄信强博客" src="/images/login/weixin.png"></a>
+				<a href="/home/github-login" class="wx_login"><img alt="黄信强博客"  src="/images/login/github.jpg"></a>
 			</div>
 			<!--<div class="modal-footer" style="text-align:center;display:none;">
-				<a href=""><img	src="<?= Url::to(['wx/qrcode'])?>"></a>
+				<a href=""><img	alt="黄信强博客" src="<?= Url::to(['wx/qrcode'])?>"></a>
 			</div>-->
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal -->
 </div>
+
+
+<div class="modal fade in" id="modal-links" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true" style="display: none; padding-right: 15px;">
+        <div class="modal-dialog">
+            <div class="modal-content row">
+                <div class="col-xs-12 col-md-12 col-lg-12" style="width:100%;text-align: center;">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title b-ta-center" id="myModalLabel">申请友链 <span class="b-hint">(请确保已添加本站的友情链接)</span></h4>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-12 col-lg-12 b-submit-site" style="width:100%;margin-top:10px;" >
+                    <form class="form-horizontal" role="form" action="" method="post">
+                        <input type="hidden" name="_token" value="sJfLqMwD4dmA0thXFTEFyuTrw63LJ9KZibjYtwL4">
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">名称</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="name" placeholder="请输入网站名,例如:黄信强博客">
+                            </div>
+                        </div>
+			<div id="link_name" style="display:none;">
+			    <p class="col-sm-2"></p>
+			    <p class="col-sm-10" style="margin-top: -10px;"><em style="color:red;">网站名不能为空</em></p>
+			</div>
+                        <div class="form-group">
+                            <label for="url" class="col-sm-2 control-label">链接</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="url" placeholder="请输入URL,例如:http://www.hxinq.com">
+                            </div>
+                        </div>
+			<div id="link_url" style="display:none;">
+                            <p class="col-sm-2"></p>
+                            <p class="col-sm-10" style="margin-top: -10px;"><em style="color:red;">链接地址不能为空</em></p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="col-sm-2 control-label">邮箱</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="email" placeholder="请输入邮箱用于接收通知">
+                            </div>
+                        </div>
+			<div id="link_email" style="display:none;">
+                            <p class="col-sm-2"></p>
+                            <p class="col-sm-10" style="margin-top: -10px;"><em style="color:red;">邮箱不能为空</em></p>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-xs-12 col-md-12 col-lg-12" style="width:100%">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary center-block b-s-submit">提交</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+
 
 
 <footer class="footer">
@@ -181,6 +238,83 @@ $('.login').click(function(){
 $('.wx_login').click(function(){
 	$('.modal-footer').show();
 })
+
+$(function(){
+	var _name = $.trim($('input[name="name"]').val());
+	var _url = $.trim($('input[name="url"]').val());
+	var _email = $.trim($('input[name="email"]').val());
+	$('input[name="name"]').focus(function(){
+		if(!_name){
+			$('#link_name').show();	
+			return false;
+		}		
+  	});
+	$('input[name="name"]').blur(function(){
+		var name = $.trim($('input[name="name"]').val());
+		if(name){
+			$('#link_name').hide();
+		}
+  	});
+	$('input[name="url"]').focus(function(){
+		if(!_url){
+			$('#link_url').show();
+			return false;
+		}
+  	});
+	$('input[name="url"]').blur(function(){
+		var url = $.trim($('input[name="url"]').val());
+		if(url){
+			$('#link_url').hide();
+		}
+  	});
+	
+	$('input[name="email"]').focus(function(){
+		if(!_email){
+			$('#link_email').show();
+			return false;
+		}	
+  	});
+	$('input[name="email"]').blur(function(){
+		var email = $.trim($('input[name="email"]').val());
+		if(email){
+			$('#link_email').hide();
+		}
+  	});
+
+})
+
+$('.b-s-submit').click(function(){
+	var _name = $.trim($('input[name="name"]').val());
+	var _url = $.trim($('input[name="url"]').val());
+	var _email = $.trim($('input[name="email"]').val());
+	if(!_name){
+		$('#link_name').show();	
+		return false;
+	}		
+	if(!_url){
+		$('#link_url').show();
+		return false;
+	}
+	if(!_email){
+		$('#link_email').show();
+		return false;
+	}	
+	$.ajax({
+		type:'post',
+		url:"/home/links",
+		data:{name:_name,url:_url,email:_email},
+		dataType:'json',
+		success:function(data){
+			if(data.status==1){
+				alert(data.msg);
+				window.location.reload();
+			}
+		}
+	})
+
+
+})
+
 </script>
 <!-- 百度统计-->
 <script>

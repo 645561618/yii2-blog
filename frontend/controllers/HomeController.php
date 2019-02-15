@@ -284,7 +284,7 @@ class HomeController extends FrontendController
 			$model->email = $email;
 			$model->created = time();
 			if($model->save(false)){
-				if(Email::LinksApplyEmail($model->title,$model->created,$model->url)){
+				if(Email::LinksApplyEmail($model->title,$model->created,$model->url,$model->email)){
 					echo json_encode(['status'=>1,'msg'=>'添加成功,稍后会以邮件的形式通知你']);exit;
 				}				
 			}

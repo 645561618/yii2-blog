@@ -44,8 +44,9 @@ class TableSchemaController extends Controller
             echo "Database has not table \n";
         }
 
-        $root = dirname(dirname(dirname(__FILE__)));
-        $filename = $argv[3] ? $argv[3] : '/docs/note/数据库设计及字典说明.md';
+        //$root = dirname(dirname(dirname(__FILE__)));
+        $root = "/tmp/";
+        $filename = $argv[3] ? $argv[3] : '数据库设计及字典说明.md';
         $filePath = $root . $filename;
 
         $fp = fopen($filePath, 'a+');
@@ -121,7 +122,8 @@ class TableSchemaController extends Controller
             exit;
         }
 
-        $root = dirname(dirname(dirname(__FILE__)));
+        //$root = dirname(dirname(dirname(__FILE__)));
+        $root = "/tmp/";
         $filePath = $argv[2] ? $argv[2] : '/docs/note/数据库设计及字典说明.md';
         $filePath = $root . $filePath;
 

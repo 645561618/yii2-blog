@@ -11,6 +11,7 @@ return [
         'manager/update' => ['manager-manager-update','manager*'],
         'manager/delete' => ['manager-manager-delete','manager*'],
         'manager/create' => ['manager-manager-create','manager*'],
+        'manager/update-manager' => ['manager-update-manager','manager*'],
 
 	/*'apply/index' => ['apply-index','apply*'],
         'apply/delete-apply' => ['apply-delete-apply','apply*'],
@@ -57,6 +58,11 @@ return [
 	'blog/delete-list' => ['blog-delete-article','blog*'],
 	'blog/upload' => ['blog-upload','blog*'],
 	
+	'prize/index'  => ['prize-index','prize*'],
+	'prize/grant'  => ['prize-grant','prize*'],
+	'prize/service'  => ['prize-service','prize*'],
+	'prize/update-wx'  => ['prize-update-wx','prize*'],
+	'prize/upload'  => ['prize-upload','prize*'],
 
 
 ];

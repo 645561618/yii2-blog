@@ -83,7 +83,6 @@ class ManagerUser extends User
         if (!is_array($allow_perms)) {
             $allow_perms = [$allow_perms];
         }
-
         foreach ($allow_perms as $p_name) {
             if ($this->can($p_name)) {
                 return true;

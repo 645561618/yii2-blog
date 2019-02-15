@@ -90,14 +90,14 @@ class LoginForm extends Model
    public function loginLog(){
         $userIP = Yii::$app->request->userIP;
 	//$username = Yii::$app->user->identity->username;
-        $data = CityWeather::getCity($userIP);
+        //$data = CityWeather::getCity($userIP);
 	$model = Log::find()->where(['id'=>Yii::$app->user->id,'ip'=>$userIP])->one();
 	if(!$model){
 		$model = new Log();
 	}
 	$model->username = $this->username;	
 	$model->ip = $userIP;
-	$model->data = $data;
+	//$model->data = $data;
 	$model->created = time();
 	$model->save(false);
 

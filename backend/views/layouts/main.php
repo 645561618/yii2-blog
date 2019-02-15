@@ -38,28 +38,28 @@ AppAsset::register($this);
                 <ul class="headermenu">
                     <li>
                         <div id="noticePanel" class="btn-group">
-                            <button class="btn btn-notice alert-notice" data-toggle="dropdown" aria-expanded="false">
+                            <!--<button class="btn btn-notice alert-notice" data-toggle="dropdown" aria-expanded="false">
                                 <i class="fa fa-commenting"></i>
-                            </button>
+                            </button>-->
                             <div id="noticeDropdown" class="dropdown-menu dm-notice pull-right">
                                 <div role="tabpanel">
                                     <!-- Tab panes -->
                                     <div class="tab-content">
                                         <div role="tabpanel" class="tab-pane" id="reminders" style="display:block">
-					    <?php $data=Yii::$app->user->WeatherInfo();?>
-                                            <h1 class="today-day"><?=$data['Title']?></h1>
+					    <?php //$data=Yii::$app->user->WeatherInfo();?>
+                                            <!--<h1 class="today-day"><?//=$data['Title']?></h1>-->
                                             <!--<h3 id="todayDate" class="today-date"></h3>-->
 				    	    <!--<h4 class="panel-title">即将到期</h4>-->
                                             <ul class="list-group">
                                                 <li class="list-group-item">
                                                     <div class="row">
                                                         <div class="col-xs-2">
-                                                            <h4><?=date('d')?></h4>
-                                                            <p><?=date('M')?></p>
+                                                            <h4><?//=date('d')?></h4>
+                                                            <p><?//=date('M')?></p>
                                                         </div>
                                                         <div class="col-xs-10">
-                                                            <h5><a href="javascript:;"><?=date('Y-m-d H:i:s',time())?></a></h5>
-                                                            <small><?=Yii::$app->user->getCity()?></small>
+                                                            <h5><a href="javascript:;"><?//=date('Y-m-d H:i:s',time())?></a></h5>
+                                                            <small><?//=Yii::$app->user->getCity()?></small>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -112,7 +112,7 @@ AppAsset::register($this);
 
             <div class="leftpanel-userinfo collapse" id="loguserinfo">
                 <h5 class="sidebar-title">地址</h5>
-                <address><?=Yii::$app->user->getCity()?></address>
+                <address><?//=Yii::$app->user->getCity()?></address>
                 <h5 class="sidebar-title">联系方式</h5>
                 <ul class="list-group">
                     <li class="list-group-item">
@@ -129,22 +129,22 @@ AppAsset::register($this);
 					<ul class="nav nav-pills nav-stacked nav-quirk">
 				        <?php foreach(Yii::$app->user->getTopMenu() as $k=>$v){?>
 					        <li class="nav-parent <?php if($this->params['menu_name']==$k){?>active<?php }?>">
-			                		<a href="<?=$v['route'] ?>"><i class="fa fa-<?=$v['icon']?>"></i><span><?=$v['name'] ?></span></a>
+			                		<a href="/<?=$v['route'] ?>"><i class="fa fa-<?=$v['icon']?>"></i><span><?=$v['name'] ?></span></a>
 			                        	<ul class="children">
                         		        		<?php if(!empty($this->params['sidebar_name'])){ ?>
 			                                        	<?php foreach(Yii::$app->user->getSubMenu($this->params['menu_name']) as $key=>$value){?>
                         			                        	<?php if(isset($value['subs_son'])){ ?>
                                                 			        	<li <?php if($value['name']==$this->params['three_menu']){?>class="active"<?php }?> id="active-children">
-			                                                                	<a href="<?=$value['route']?>" ><?=$value['name']?></a>
+			                                                                	<a href="/<?=$value['route']?>" ><?=$value['name']?></a>
 	                        			                                        <ul class="children" id="children-<?=$key?>" <?php if($value['name']!=$this->params['three_menu']){?>style="display:none;"<?php }?>>
         	                                        			                        <?php foreach($value['subs_son'] as $kk=>$vv){ ?>
-                	                                                        			        <li <?php if($vv['name']==$this->params['sidebar_name']){?>class="active"<?php }?>><a href="<?=$vv['route']?>"><?=$vv['name']?></a></li>
+                	                                                        			        <li <?php if($vv['name']==$this->params['sidebar_name']){?>class="active"<?php }?>><a href="/<?=$vv['route']?>"><?=$vv['name']?></a></li>
 				                                                                        <?php }?>
                         				                                        </ul>
                                         	        			        </li>
 			                        	                        <?php }else{ ?>
                         			        	                        <li <?php if($value['name']==$this->params['sidebar_name']){?>class="active"<?php }?> onclick="showMenu('<?=$key?>');">
-                                                				                <a href="<?=$value['route']?>"><?=$value['name'] ?></a>
+                                                				                <a href="/<?=$value['route']?>"><?=$value['name'] ?></a>
 			                                                	        </li>
 	                        			                        <?php }?>
 				                                        <?php }?>

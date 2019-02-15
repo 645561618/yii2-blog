@@ -20,7 +20,7 @@
                         <div style="width: 700px; height: 30px; line-height: 30px;  text-indent: 66px;">文章标题：<span style="color: #000; font-weight: bolder;"><?php echo $title;?></span></div>
                         <div style="width: 700px; height: 30px; line-height: 30px;  text-indent: 66px;">评论内容：<span style="color: #000; font-weight: bolder;"><?php echo $content;?></span></div>
                         <div style="width: 700px; height: 30px; line-height: 30px;  text-indent: 66px;">登录IP：<span style="color: #000; font-weight: bolder;"><?php echo $ip;?></span></div>
-                        <div style="width: 700px; height: 30px; line-height: 30px;  text-indent: 66px;">登录所在的城市：<span style="color: #000; font-weight: bolder;"><?php echo $cityData['pro'];?>&nbsp;&nbsp;<?php echo $cityData['city']; ?>&nbsp;&nbsp;<?php echo $cityData['county']; ?></span></div>
+                        <!--<div style="width: 700px; height: 30px; line-height: 30px;  text-indent: 66px;">登录所在的城市：<span style="color: #000; font-weight: bolder;"><?php// echo $cityData['pro'];?>&nbsp;&nbsp;<?php //echo $cityData['city']; ?>&nbsp;&nbsp;<?php //echo $cityData['county']; ?></span></div>-->
                         <div style="width: 700px; height: 30px; line-height: 30px;  text-indent: 66px;"><a href="http://www.hxinq.com"><span style="color: #000; font-weight: bolder;">点击这里，进入文章。</span></a>&nbsp;&nbsp;&nbsp;</div>
                 </div>
         </div>

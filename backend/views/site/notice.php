@@ -17,7 +17,7 @@
                         <div style="width: 700px; height: 30px; line-height: 30px; color: #cd3f08; text-indent: 66px;"> 您的管理用户<?=$username?>在<?=$time?>登录了管理后台！</div>
                         <div style="width: 700px; height: 30px; line-height: 30px;  text-indent: 66px;">登录账号：<span style="color: #000; font-weight: bolder;"><?php echo $username;?></span></div>
                         <div style="width: 700px; height: 30px; line-height: 30px;  text-indent: 66px;">登录IP：<span style="color: #000; font-weight: bolder;"><?php echo $ip;?></span></div>
-                        <div style="width: 700px; height: 30px; line-height: 30px;  text-indent: 66px;">登录所在的城市：<span style="color: #000; font-weight: bolder;"><?php echo $cityData['pro'];?>&nbsp;&nbsp;<?php echo $cityData['city']; ?>&nbsp;&nbsp;<?php echo $cityData['county']; ?></span></div>
+                        <!--<div style="width: 700px; height: 30px; line-height: 30px;  text-indent: 66px;">登录所在的城市：<span style="color: #000; font-weight: bolder;"><?php // echo $cityData['pro'];?>&nbsp;&nbsp;<?php // echo $cityData['city']; ?>&nbsp;&nbsp;<?php // echo $cityData['county']; ?></span></div>-->
                         <div style="width: 700px; height: 30px; line-height: 30px;  text-indent: 66px;"><a href="http://b.hxinq.com"><span style="color: #000; font-weight: bolder;">点击这里，登录后台管理。</span></a>&nbsp;&nbsp;&nbsp;</div>
                 </div>
         </div>

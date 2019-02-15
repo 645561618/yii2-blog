@@ -111,6 +111,8 @@ return [
 		'user-comment.html'=>'/home/comments',
 		'user-reply.html'=>'/home/reply-comments',
 		'logout.html'=>'/home/logout',
+		'prize.html' => 'prize/index',
+		'prize-<t:\d+>.html' => 'prize/index',
 		'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',	
 		'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',	
             ],

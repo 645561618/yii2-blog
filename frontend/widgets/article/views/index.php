@@ -16,7 +16,7 @@ use common\models\Common;
 		<div class="row">
                     <div class="col-lg-4 col-md-4 col-xs-4 label-img-size">
 			<a href="<?=Url::toRoute(['home/detail', 'id' =>$list['id'],'cid'=>$list['cid']]);?>" class="post-label">
-	        		<img class="img-responsive" src="http://img.hxinq.com/<?=$list['img']?$list['img']:"article/day_171026/20171026_4a60697.jpg.thumb.thumb.jpg"?>" alt="黄信强博客" title="黄信强博客">
+	        		<img class="img-responsive" src="<?php echo Yii::$app->params['domain']?><?=$list['img']?$list['img']:"article/day_171026/20171026_4a60697.jpg.thumb.thumb.jpg"?>" alt="黄信强博客" title="黄信强博客">
 			<a>
 		    </div>
 		    <div class="col-lg-8 col-md-8 col-xs-12">

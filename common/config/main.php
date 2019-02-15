@@ -13,6 +13,9 @@ return [
 	'PublicService'=>[
             'class'=> 'common\components\PublicSafe',
         ],
+	'AliyunOss'=>[
+		'class' => 'common\components\Aliyunoss',
+	],
 	'platform'=>[
             'class'=>'common\components\platform\PlatformLogin',
             'config_file'=>Yii::getAlias('config/platform')."/global.php",

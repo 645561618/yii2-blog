@@ -1032,7 +1032,14 @@ class GridActionColumn extends ActionColumn
             };
         }
 
-
+	if (!isset($this->buttons['update-wx'])) {
+            $this->buttons['update-wx'] = function ($url, $model) {
+                return Html::a('<button class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-pencil"></i>&nbsp;修改</button>', $url, [
+                    'title' => Yii::t('yii', '修改'),
+                    'style'=>'margin:0 10px 0 10px',
+                ]);
+            };
+        }
 	
 
         parent::initDefaultButtons();

@@ -14,7 +14,7 @@ use frontend\models\article\ArticleFront;
 		<div class="row">
                     <div class="col-lg-4 col-md-4 col-xs-4 label-img-size">
 			<a href="<?=Url::toRoute(['home/detail', 'id' =>$list['id'],'cid'=>$list['cid']]);?>" class="post-label">
-	        		<img class="img-responsive" src="http://img.hxinq.com/<?=$list['img']?$list['img']:"article/day_171026/20171026_4a60697.jpg.thumb.thumb.jpg"?>">
+	        		<img class="img-responsive" src="<?php echo Yii::$app->params['domain']?><?=$list['img']?$list['img']:"article/day_171026/20171026_4a60697.jpg.thumb.thumb.jpg"?>">
 			<a>
 		    </div>
 		    <div class="col-lg-8 col-md-8 col-xs-12">

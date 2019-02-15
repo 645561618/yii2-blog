@@ -120,6 +120,39 @@ class Upload{
         }
     }
 
+    
+    public function uploadWx($file,$ifthumb=false,$newdir=false){
+        $attachDir = Yii::$app->params['attachDir'];
+        $dir = '/wx/'.'day_'.date('ymd').'/';
+        if($newdir){
+            $dir = '/'.$newdir.'/day_'.date('ymd').'/';
+        }
+        $save_path = $attachDir . $dir;
+         //var_dump($save_path);exit;
+        if(!is_dir($save_path)){
+            @mkdir($save_path,0777,true);
+        }
+        //print_r($file['upload']['tmp_name']);exit;
+        $filetype = $this->getImageBufferExt($file['upload']['tmp_name']);
+        $error = $this->showError($file,$filetype);
+        if($error){
+            return $error;
+        }
+        $md5 = md5_file($file['upload']['tmp_name']);
+        $new_file_name = date("Ymd") . '_' . substr($md5,0,7) . '.' . $filetype;
+        $file_path = $save_path . $new_file_name;
+        //echo $file_path;exit;
+        $url = Yii::$app->params['targetDomain']. $dir.$new_file_name;
+        $model = new UploadedFile;
+        $model->tempName=$file['upload']['tmp_name'];
+        if($model->saveAs($file_path)){
+            $realpath = $dir.$new_file_name;
+            return [true,$url,$realpath];
+        }else{
+            return [false,"文件上传失败，请检查上传目录设置和目录读写权限"];
+        }
+    }
+
 
 
 

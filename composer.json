@@ -43,7 +43,7 @@
         "aliyuncs/oss-sdk-php": "dev-master",
         "2amigos/yii2-qrcode-helper": "*",
         "yurunsoft/yurun-oauth-login": "~2.0",
-        "kartik-v/yii2-export": "@dev"
+        "kartik-v/yii2-export": "@dev",
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

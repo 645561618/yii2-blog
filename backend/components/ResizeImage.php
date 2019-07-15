@@ -7,11 +7,12 @@ class ResizeImage {
     public function getThumb($file_path,$dir,$ext,$width=100,$height=100,$thumbname=false){
         $show_pic_scal = $this->show_pic_scal($width,$height,$file_path);
         $this->resize($file_path,$show_pic_scal[0],$show_pic_scal[1],$thumbname); 
-        if($thumbname){
-            $imgPath_thumb =  $dir.'.thumb.thumb.jpg';
+        /*if($thumbname){
+            //$imgPath_thumb =  $dir.'.thumb.thumb.jpg';
         }else{
-            $imgPath_thumb =  $dir.'.thumb.jpg';
-        }
+            //$imgPath_thumb =  $dir.'.thumb.jpg';
+        }*/
+	$imgPath_thumb = $dir;
         return $imgPath_thumb;
     }
     public function show_pic_scal($width, $height, $picpath) {     

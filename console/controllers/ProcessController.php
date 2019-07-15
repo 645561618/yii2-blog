@@ -44,7 +44,7 @@ class ProcessController extends Controller
 			self::SetArticle($result);
 		}elseif($day >= 6*24*60*60 && $day < 9*24*60*60 && $num=4){
 			self::SetArticle($result);
-		}elseif($day >= 9*24*60*60 && $day < 12*24*60*60 $num==3){
+		}elseif($day >= 9*24*60*60 && $day < 12*24*60*60 && $num==3){
 			self::SetArticle($result);
 		}elseif($day >= 12*24*60*60 && $day < 15*24*60*60 && $num==2){
 			self::SetArticle($result);

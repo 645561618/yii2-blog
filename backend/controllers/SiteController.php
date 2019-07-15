@@ -163,4 +163,178 @@ class SiteController extends Controller
     public function actionError(){
 	return "执行错误操作！";
     }
+
+
+       /**
+     * @Author       huangxinqiang
+     * @DateTime     19-5-21 下午4:31
+     * @NAME         actionGetchart
+     * @description  [异步获取图表 type类别，inquiry：询盘;productNum:产品,company:企业入驻数]
+     */
+    public function actionGetchart() {
+        if (empty($this->cyd->id)) {
+            echo json_encode(['code' => 0]);
+            exit;
+        }
+        $type = empty($_POST['type']) ? 'inquiry' : $_POST['type'];
+        $dateTime = empty($_POST['date']) ? date('Y-m') : $_POST['date'];
+        if ($type == 'inquiry') {
+            $dataArr = $this->_getDataCount($this->cyd->id, 'inquiryNum', $dateTime);
+        } else if ($type == 'product') {
+            $dataArr = $this->_getDataCount($this->cyd->id, 'productNum', $dateTime);
+        } else if($type == 'company') {
+            $dataArr = $this->_getDataCount($this->cyd->id, 'companyNum',$dateTime);
+        }
+        $dateString = $this->_getDate($this->cyd->id, $dateTime);
+        echo json_encode(['code' => 1, 'dataArr' => $dataArr, 'dateString' => $dateString]);
+        exit;
+    }
+
+    /**
+     * @Author       huangxinqiang
+     * @DateTime     19-5-21 下午5:29
+     * @NAME         actionGetsitedata
+     * @description  [获取数据统计,inquiryNum：询盘数;productNum:产品数,companyNum:企业入驻数
+     *                  companyAllNum:询盘总数,productAllNum:产品总数,companyAllNum:入驻企业总数
+     *              ]
+     */
+    public function actionGetsitedata() {
+	echo 111;exit;
+        $sitearr = array();
+        $dateTime = date('Y-m');
+        $dateString = $this->_getDate($dateTime);
+        $inquiryArr = $this->_getDataCount($this->cyd->id, 'inquiryNum', $dateTime);
+        $productArr = $this->_getDataCount($this->cyd->id, 'productNum', $dateTime);
+        $companyArr = $this->_getDataCount($this->cyd->id, 'companyNum',$dateTime);
+
+        if (!empty($dateString)) {
+            foreach ($dateString as $key => $date) {
+                $sitearr[$date]['inquiry'] = array(
+                    'total' => $this->_getAllDataCount($this->cyd->id, 'inquiryAllNum'),
+                    'this' => isset($inquiryArr[$key]) ? $inquiryArr[$key] : 0,
+                    'lastMonth' => date('n',strtotime('-1 month')),
+                );
+
+                $sitearr[$date]['product'] = array(
+                    'total' => $this->_getAllDataCount($this->cyd->id, 'productAllNum'),
+                    'this' => isset($productArr[$key]) ? $productArr[$key] : 0,
+                    'lastMonth' => date('n',strtotime('-1 month')),
+                );
+
+                $sitearr[$date]['company'] = array(
+                    'total' => $this->_getAllDataCount($this->cyd->id, 'companyAllNum'),
+                    'this' => isset($companyArr[$key]) ? $companyArr[$key] : 0,
+                    'lastMonth' => date('n',strtotime('-1 month')),
+                );
+
+            }
+            echo json_encode(['code' => 1, 'site' => array_reverse($sitearr)]);
+            exit;
+        }
+        echo json_encode(['code' => 0]);
+        exit;
+    }
+
+
+    /**
+     * @Author       huangxinqiang
+     * @DateTime     19-5-21 下午5:30
+     * @NAME         _getDataCount
+     * @description  [该产业带下每月统计,inquiryNum：询盘数;productNum:产品数,companyNum:企业入驻数]
+     * @param $cyd_id
+     * @param $type
+     * @param $datetime
+     * @param int $limit
+     * @return array
+     */
+    public function _getDataCount($cyd_id, $type, $datetime, $limit = 12) {
+        if (!empty($cyd_id) && !empty($type)) {
+            $typeString = [];
+            $criteria = new CDbCriteria;
+            $criteria->select = "$type";
+            $criteria->condition = "cyd_id = '{$cyd_id}' AND dateTime <= '{$datetime}'";
+            $criteria->order = 'dateTime DESC';
+            $criteria->limit = $limit;
+            $type_list = CydDataCount::model()->findAll($criteria);
+            if (!empty($type_list)) {
+                $type_list = array_reverse($type_list);
+                foreach ($type_list as $key => $value) {
+                    $typeString[] = (int) $value->$type;
+                }
+            }
+            return $typeString;
+        }
+    }
+
+
+    /**
+     * @Author       huangxinqiang
+     * @DateTime     19-5-21 下午5:30
+     * @NAME         _getDataCount
+     * @description  [该产业带下询盘总数统计，产品总数统计，入驻企业总数统计;inquiryAllNum:询盘总数,productAllNum:产品总数,companyAllNum:入驻企业总数]
+     * @param $cyd_id
+     * @param $type
+     * @param $datetime
+     * @param int $limit
+     * @return array
+     */
+    public function _getAllDataCount($cyd_id, $type) {
+        if (!empty($cyd_id) && !empty($type)) {
+            $criteria = new CDbCriteria;
+            $criteria->select = "$type";
+            $criteria->condition = "cyd_id = '{$cyd_id}'";
+            $res = CydAllTotal::model()->find($criteria);
+            if($res){
+                return $res->$type;
+            }
+            return 0;
+        }
+    }
+
+
+
+    /**
+     * @Author       huangxinqiang
+     * @DateTime     19-5-21 下午5:33
+     * @NAME         _getDate
+     * @description  [获取记录时间]
+     * @param $cyd_id
+     * @param $datetime
+     * @param int $limit
+     * @return array
+     */
+    public function _getDate( $datetime, $limit = 12) {
+        if (!empty($cyd_id)) {
+            $typeString = [];
+            $type_list = ArticleBack::find()->where("created_time<=$datetime")->All();
+		echo "<pre>";
+print_r($type_list);exit;
+            if (!empty($type_list)) {
+                $type_list = array_reverse($type_list);
+                foreach ($type_list as $key => $value) {
+                    $typeString[] = $value->dateTime;
+                }
+            }
+            return $typeString;
+        }
+    } 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

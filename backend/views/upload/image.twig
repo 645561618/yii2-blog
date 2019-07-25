@@ -1,0 +1,73 @@
+{% set sidebar_name = "上传图片" %}
+{% set menu_name = "shop" %}
+<div class="content">
+    {% block content %}
+    <link rel="stylesheet" type="text/css" href="/statics/css/upload.css">
+    <script type="text/javascript" src="/js/SimpleHtmlTree.js"></script>
+    <h4>上传图片</h4>
+    {% set form = form_begin({'id':'create-form','layout':'horizontal','options':{'enctype':'multipart/form-data'}}) %}
+                            <div id="uploads" class="form-group ">
+                                <div class="form-group">
+                                    <label for="disease-name_cn" class="control-label col-sm-3">上传图片 :</label>
+                                            <div class="col-sm-6 top_image">
+                                                <span style="color:red"></span>
+                                                <img class="fl" align="absmiddle" alt="Image" title="Image" onClick="uploadFile()" src="/images/insert_image.png"><br/>
+                                                <input type="hidden" id="img_image" name="OrderFront[url]">
+                                                {% if model.url is not empty %}
+                                                        <img alt="" width="128px" height="128px" class="img_image" src="{{staticUrl}}{{model.url}}">
+                                                {% else %}
+                                                        <img alt="" width="128px" height="128px" class="img_image" src="">
+                                                {% endif %}
+                                            </div>
+                                </div>
+                            </div>
+			    {#{ form.field(model, 'url').widget('\\kartik\\file\\FileInput',{'pluginOptions':{'uploadUrl':'http://b.hxinq.com/upload/upload-files','initialPreviewAsData':true,'minFileCount':1,'maxFileCount':2,'showRemove':true}})|raw }#}
+			    <input type="hidden" id="img_image" name="OrderFront[url]">
+                            <div class="form-group ">
+                                <label for="dailylesson-params" class="control-label col-sm-3"></label>
+                                <div class="col-sm-6">
+                                    <input type='submit' value='提交' class='btn btn-large btn-primary' />
+                                </div>
+                            </div>
+                      {{ void(form.end()) }}
+<script>
+
+	 function uploadFile() {
+            $(".content").append("<div id='newlayer' class=\"overlay\"></div>");
+            $(".content").append("" +
+            "<div id='newwindow' class=\"newwindow\">" +
+            "<div id='close' class='close'>X</div>" +
+            "<div class='caption'>" +
+            "<h5>请选择上传的图</h5>" +
+            "<form id=\"uploadFrom\" action=\"/upload/uploadfile\" method=\"post\" target=\"tarframe\" enctype=\"multipart/form-data\">" +
+            "<input type=\"file\" id=\"upload_file\" name=\"upload[]\" multiple=\"multiple\" style='margin:1rem 0;'>" +
+            "<input type='submit' id='submitId' value='上传'  class='btn btn-large btn-primary'>" +
+            "</form>" +
+            "<iframe src='' width='0' height='0' style=\"display:none;\" name=\"tarframe\">" +
+            "</iframe>" +
+            "</div>" +
+            "</div>");
+            $("#close").click(function () {
+                $("#newlayer").remove();
+                $("#newwindow").remove();
+            });
+        }
+
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $("#upload_file").change(function () {
+                $("#uploadFrom").submit();
+            });
+        });
+
+        function stopSend( img, img_path) {
+            $("#newlayer").remove();
+            $("#newwindow").remove();
+
+            $("#img_image").val(img_path);
+            $(".img_image").attr("src", img);
+        }
+    </script>
+    {% endblock %}
+</div>

@@ -1,0 +1,24 @@
+{% set menu_name = "business" %}
+{% set sidebar_name = "商家账户充值" %}
+{% include "@app/views/layouts/header.twig" %}
+<div class="content">
+    <h3>商家账户充值</h3>
+{% block content %}
+<div class="container">
+
+    <div class="row">
+        <div class="form">
+
+            {% set form = form_begin({'id':'create-form','options':{'enctype':'multipart/form-data','class':'form-horizontal'}}) %}
+            {{ form.field(model,'account')|raw }}
+            <div class="form-group">
+                        <input type='submit' value='提交' class='btn btn-large btn-primary' />
+            </div>
+            {{ void(form.end()) }}
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}
+</div>

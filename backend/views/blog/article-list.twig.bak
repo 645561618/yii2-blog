@@ -1,0 +1,128 @@
+{% set menu_name = "blog" %}
+{% set sidebar_name = "文章列表" %}
+<div class="content">
+    <h3>文章列表</h3>
+    <hr class="darken">
+{% block content %}
+{{
+    widget('\\kartik\\grid\\GridView', {
+            'dataProvider':dataProvider,
+	    'filterModel':model,
+	    'hover':true,
+            'columns':{
+		0:{
+                   'attribute':'weight','value':model.showSort(),'format':'raw',
+                },
+                1:'id',
+                2:'title',
+		3:'views',
+                4:'weight',
+		21:{
+		        'attribute':'cid',
+		        'value':model.getCategoryTitle(),
+		        'filterType':constant('\\kartik\\grid\\GridView::FILTER_SELECT2'),
+		        'filter':model.getCateValues(),
+		        'filterWidgetOptions':{'pluginOptions':{'allowClear':true},},
+		        'filterInputOptions':{'placeholder':'选择分类'},
+		        'format':'html',
+	        },
+		22:{    
+                        'attribute':'tid',
+                        'value':model.getLabelTitle(),
+                        'filterType':constant('\\kartik\\grid\\GridView::FILTER_SELECT2'),
+                        'filter':model.getLabelValues(),
+                        'filterWidgetOptions':{'pluginOptions':{'allowClear':true},},
+                        'filterInputOptions':{'placeholder':'选择标签'},
+                        'format':'html',
+                },
+		5:{
+			'attribute':'is_recommend',
+                        'value':model.getRecommend(),
+			'filterType':constant('\\kartik\\grid\\GridView::FILTER_SELECT2'),
+                        'filter':model.getRecommendValues(),
+                        'filterWidgetOptions':{'pluginOptions':{'allowClear':true},},
+                        'filterInputOptions':{'placeholder':'是否推荐'},
+                        'format':'html',
+		},
+                6:{
+			'attribute':'创建时间',
+		  	'value':model.getTime(),
+		},
+                7:{
+                        'attribute':'状态',
+                        'value':model.getStatus(),
+                        'format':'html',
+                },
+		8:{
+		    'class':'\\common\\extensions\\Grid\\GridActionColumn',
+		    'template':'{update-article}{delete-article}',
+		    'header':'操作',
+	        },
+
+}})
+
+}}
+
+<div class="modal bootstrap-dialog type-warning fade size-normal in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title bootstrap-dialog-title" id="myModalLabel">
+					更新提示
+				</h4>
+			</div>
+			<div class="modal-body bootstrap-dialog-message">
+				排序更新成功
+			</div>
+			<div class="modal-footer">
+				<div class="bootstrap-dialog-footer-buttons">
+				<button type="button" class="btn btn-warning" data-dismiss="modal">
+					<span class="glyphicon glyphicon-ok"></span> 确定	
+				</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<button class="btn btn-sm btn-primary" type="button" onclick="updateSort('/blog/article-sort');">排序</button>
+<script type="text/javascript">
+    function updateSort(url)
+    {
+        var pars = "";
+        var nodes = jQuery.makeArray($('input[type=text]'));
+        $.each(nodes,function(n,node){
+           //alert(node.name.indexOf('sort'));
+           //判断下标大于-1
+           if(node.name.indexOf('sort') > -1)
+           {
+                tnode = node.name.split('_');
+                pars+= tnode[0] + "_" + node.value + "-";
+           }
+        });
+
+
+        $.post(url,{id:pars},function(msg){
+		if(msg){
+			$("#myModal").modal('show');  
+			$("#myModal").on('hide.bs.modal',function(){
+                		//window.location.reload();
+				return false;
+			});
+			$("#myModal .btn").click(function(){
+                                window.location.reload();
+                        });
+                	//alert(msg);
+		}
+        });
+
+}
+
+</script>
+
+
+
+{% endblock %}
+</div>
+

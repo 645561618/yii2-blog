@@ -1,0 +1,9 @@
+    <ul class="nav navbar-nav navbar-right">
+                <li><a href="" {% if controllerID=="home" and actionID=="index" %}style="color:#337ab7;"{% endif  %}>首页</a></li>
+        {% if result is not empty %}
+        {% for k,v in result%}
+                <li><a href="{{ v.url }}" {% if controllerID=="home" and actionID=="index" %}style="color:#337ab7;"{% endif  %}>{{ v.title }}</a></li>
+        {% endfor %}
+        {% endif %}
+                <!--<li><a href="">留言</a></li>-->
+    </ul>

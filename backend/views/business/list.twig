@@ -1,0 +1,37 @@
+{% set menu_name = "business" %}
+{% set sidebar_name = "商家列表" %}
+{% include "@app/views/layouts/header.twig" %}
+<div class="content">
+    <h3>商家列表</h3>
+{% block content %}
+{{
+    widget('\\yii\\grid\\GridView', {            
+            'id':'app-grid', 
+            'dataProvider':dataProvider, 
+            'columns':{
+                0:'id',
+                1:'username',
+                2:'phone',
+                3:'created', 
+                5:{
+                    'class':'\\common\\extensions\\Grid\\BusinessGridActionColumn',
+                    'template':'{update-business}{delete-business}{assignment}',
+		    'header':'操作',
+                },
+		6:{
+		        'attribute':'设置',
+		        'value':model.Setshopbalance(),
+        		'format':'html',
+    		},
+		7:{
+                        'attribute':'记录',
+                        'value':model.getBalanceList(),
+                        'format':'html',
+                },
+
+                
+}})
+
+}}
+{% endblock %}
+</div>

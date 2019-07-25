@@ -1,0 +1,260 @@
+#content{
+	margin:2rem auto;
+	width:80rem;
+	height:56rem;
+}
+#content_left{
+	float:left;
+	width:13rem;
+	height:56rem;
+	background:#25242C;
+	color:white;	
+}
+#content_right{
+	float:left;
+	height:56rem;
+	width:67rem;
+}
+.right_top{
+	height:6rem;
+	border-bottom:1px solid #F2D2D5;
+}
+.head_img img{
+	width:8rem;
+	height:8rem;
+	border-radius:50%;
+	margin: 2.5rem 2.5rem 0.6rem;
+}
+.head_img h2{
+	text-align:center;
+}
+.account{
+	text-align:center;
+}
+.account h3{
+	margin:1rem 0 0;
+}
+.account p span{
+	color:#E9451D;
+	font-size:1.5rem;
+}
+
+.order_center{
+	margin-top:3rem;
+}
+.order_center li{
+	text-align:center;
+	font-size:1.5rem;
+	margin-top:2rem;
+}
+.order_center li a{
+	color:white;
+	display: block;
+    	width: 13rem;
+	height:4rem;
+}
+.order_center li a img{
+	margin-left:2.5rem;
+	margin-top:1.2rem;
+	float:left;
+}
+
+.order_center li a p{
+	float:left;
+	margin-top:1rem;
+}
+
+
+.order_center li a:hover{
+	background:#E4461C;
+}
+
+.right_top img{
+	float:left;
+}
+
+.right_top p{
+	float:left;
+	margin-top:2rem;
+	margin-left:16rem;
+}
+.right_top p span{
+	font-size:1.5rem;
+}
+.right_top p span em{
+	font-size:1.8rem;
+	font-weight:bold;
+}
+
+.right_top form{
+	float:right;
+	display:block
+	width:6rem;
+	height:3rem;
+	font-size:1.4rem;
+	margin-right:3rem;
+	margin-top:2.2rem;
+}
+
+.right_top form .logout{
+	background:none;
+	border:none;
+}
+.right_top form .logout:hover{
+	color:red;	
+}
+
+.rule{
+	margin-top:1rem;
+	height:9rem;
+	border-bottom:1px solid #F2D2D5;
+}
+
+.rule .rule_des{
+	float:left;
+	text-indent:2rem;	
+}
+.rule .rule_des h2{
+	color:#EC491D;
+	font-size:1.5rem;
+}
+.rule .rule_des p{
+	margin-top:.5rem;
+}
+
+.rule .rule_des p span{
+	color:#EC491D;
+}
+
+.rule h1 a{
+	display:block;
+	float:left;
+	width:9rem;
+	height:4rem;
+	background:#ED4A1C;
+	border-radius:.5rem;
+	color:white;
+	line-height:4rem;
+	text-align:center;
+	margin:2rem 12rem;;
+}
+
+.right_center{
+	height:40rem;
+	border-bottom:1px solid #F2D2D5;	
+	overflow:hidden;
+	position: relative;
+}
+
+.right_center ul{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+.right_center .get_order{
+	position:absolute;
+	top:8rem;
+	left:22rem;
+}
+.right_center .get_order .search{
+	position:absolute;
+	top:4rem;
+	left:9rem;
+}
+.right_center .order_detail{
+	width:35rem;
+	height:25rem;	
+	box-shadow: 0 0 10px #BDBDBD;
+	background:white;
+	position:absolute;
+	top:6rem;
+	left:16rem;
+}
+.right_center .order_detail .order_one{
+	float:left;
+	width:15rem;
+	height:20rem;
+	border:1px solid #E2481A;	
+	margin:2.5rem 1rem 1rem;
+	margin-left:1.2rem;
+	border-radius:.6rem;
+}
+.right_center .order_detail .order_one .people_name{
+	margin-top:1rem;
+}
+.right_center .order_detail .order_one div{
+	width:15rem;
+	height:2.2rem;
+	margin-left:1rem;
+}
+.right_center .order_detail .order_one div img{
+	float:left;
+}
+.right_center .order_detail .order_one div p{
+	float:left;
+	margin-left:.5rem;
+}
+.right_center .order_detail .order_one .click_order{
+	width:15rem;
+	height:3.6rem;
+	background:#E2481A;
+	border-radius:0 0 .6rem .6rem;
+	color:white;
+	text-align:center;
+	font-size:1.5rem;
+	line-height:3.6rem;
+}
+.right_center .order_detail .close{
+	font-size:1.5rem;
+	position:absolute;
+	top:.4rem;
+	right:1rem;
+}
+.right_center ul li{
+	float:left;
+	width:15rem;
+	height:6rem;
+	border:1px solid #C2BDBF;
+	border-radius:.5rem;
+	margin:1rem 0 1rem 1.2rem;;	
+}
+.right_center ul li p{
+	margin:.6rem;
+	text-indent:1rem;
+}
+.right_center ul li p em{
+	color:#828282;
+}
+
+.table-b{
+	width:64rem;
+	margin:1rem auto;
+}
+.table-b tr{
+	height:3rem;
+	padding-top:1rem;
+	padding:7px;
+}
+
+.table-b tr td{
+	text-align:center;
+}
+.page{ 
+	text-align: center; 
+	line-height:30px; 
+	padding:20px 0;
+}
+.page a,.page span{ 
+	color:#666; 
+	display: inline-block; 
+	padding:0 12px; 
+	margin:0 3px; 
+	border:1px solid #ddd ;
+	font-size:14px; 
+	border-radius: 3px;
+}
+.page a:hover,.page span.paging_number{ 
+	color:#fff;
+	border:1px solid #eb4200 ;
+	 background: #eb4200;
+}

@@ -17,6 +17,7 @@ use common\models\login\Login;
 use backend\models\ArticleBack;
 use backend\models\LinksBack;
 use backend\models\WxUserInfoBack;
+use backend\models\DataTotalBack;
 /**
  * Site controller
  */
@@ -39,7 +40,7 @@ class SiteController extends Controller
 			'roles' =>['?'],//游客用?
                     ],
                     [
-                        'actions' => ['logout','index','webupload','error'],
+                        'actions' => ['logout','index','webupload','error','get-data','get-chart'],
                         'allow' => true,
                         'roles' => ['@'],//已认证登录用@
                     ],
@@ -165,68 +166,47 @@ class SiteController extends Controller
     }
 
 
-       /**
-     * @Author       huangxinqiang
-     * @DateTime     19-5-21 下午4:31
-     * @NAME         actionGetchart
-     * @description  [异步获取图表 type类别，inquiry：询盘;productNum:产品,company:企业入驻数]
-     */
-    public function actionGetchart() {
-        if (empty($this->cyd->id)) {
-            echo json_encode(['code' => 0]);
-            exit;
-        }
-        $type = empty($_POST['type']) ? 'inquiry' : $_POST['type'];
-        $dateTime = empty($_POST['date']) ? date('Y-m') : $_POST['date'];
-        if ($type == 'inquiry') {
-            $dataArr = $this->_getDataCount($this->cyd->id, 'inquiryNum', $dateTime);
-        } else if ($type == 'product') {
-            $dataArr = $this->_getDataCount($this->cyd->id, 'productNum', $dateTime);
-        } else if($type == 'company') {
-            $dataArr = $this->_getDataCount($this->cyd->id, 'companyNum',$dateTime);
-        }
-        $dateString = $this->_getDate($this->cyd->id, $dateTime);
-        echo json_encode(['code' => 1, 'dataArr' => $dataArr, 'dateString' => $dateString]);
-        exit;
-    }
-
     /**
      * @Author       huangxinqiang
      * @DateTime     19-5-21 下午5:29
-     * @NAME         actionGetsitedata
-     * @description  [获取数据统计,inquiryNum：询盘数;productNum:产品数,companyNum:企业入驻数
-     *                  companyAllNum:询盘总数,productAllNum:产品总数,companyAllNum:入驻企业总数
-     *              ]
+     * @NAME         actionGetdata
+     * @description  [获取数据统计,UserNum：用户数;BlogNum:博客文章数,FansNum:微信粉丝数,LinkNum:友情链接数]
+     *              
      */
-    public function actionGetsitedata() {
-	echo 111;exit;
+    public function actionGetData() {
         $sitearr = array();
         $dateTime = date('Y-m');
         $dateString = $this->_getDate($dateTime);
-        $inquiryArr = $this->_getDataCount($this->cyd->id, 'inquiryNum', $dateTime);
-        $productArr = $this->_getDataCount($this->cyd->id, 'productNum', $dateTime);
-        $companyArr = $this->_getDataCount($this->cyd->id, 'companyNum',$dateTime);
+        $UserNumArr = $this->getDataCount('UserNum', $dateTime);
+        $BlogNumArr = $this->getDataCount('BlogNum', $dateTime);
+        $FansNumArr = $this->getDataCount('FansNum', $dateTime);
+        $LinkNumArr = $this->getDataCount('LinkNum', $dateTime);
+
 
         if (!empty($dateString)) {
             foreach ($dateString as $key => $date) {
-                $sitearr[$date]['inquiry'] = array(
-                    'total' => $this->_getAllDataCount($this->cyd->id, 'inquiryAllNum'),
-                    'this' => isset($inquiryArr[$key]) ? $inquiryArr[$key] : 0,
-                    'lastMonth' => date('n',strtotime('-1 month')),
+                $sitearr[$date]['User'] = array(
+                    'total' => $this->getAllDataCount('UserNum'),
+                    'this' => isset($UserNumArr[$key]) ? $UserNumArr[$key] : 0,
+                    'lastMonth' => date('n'),
                 );
 
-                $sitearr[$date]['product'] = array(
-                    'total' => $this->_getAllDataCount($this->cyd->id, 'productAllNum'),
-                    'this' => isset($productArr[$key]) ? $productArr[$key] : 0,
-                    'lastMonth' => date('n',strtotime('-1 month')),
+                $sitearr[$date]['Blog'] = array(
+                    'total' => $this->getAllDataCount('BlogNum'),
+                    'this' => isset($BlogNumArr[$key]) ? $BlogNumArr[$key] : 0,
+                    'lastMonth' => date('n'),
                 );
 
-                $sitearr[$date]['company'] = array(
-                    'total' => $this->_getAllDataCount($this->cyd->id, 'companyAllNum'),
-                    'this' => isset($companyArr[$key]) ? $companyArr[$key] : 0,
-                    'lastMonth' => date('n',strtotime('-1 month')),
+                $sitearr[$date]['Fans'] = array(
+                    'total' => $this->getAllDataCount('FansNum'),
+                    'this' => isset($FansNumArr[$key]) ? $FansNumArr[$key] : 0,
+                    'lastMonth' => date('n'),
                 );
-
+                $sitearr[$date]['Link'] = array(
+                    'total' => $this->getAllDataCount('LinkNum'),
+                    'this' => isset($LinkNumArr[$key]) ? $LinkNumArr[$key] : 0,
+                    'lastMonth' => date('n'),
+                );
             }
             echo json_encode(['code' => 1, 'site' => array_reverse($sitearr)]);
             exit;
@@ -235,27 +215,44 @@ class SiteController extends Controller
         exit;
     }
 
+    /**
+     * @Author       huangxinqiang
+     * @DateTime     19-5-21 下午4:31
+     * @NAME         actionGetChart
+     * @description  [异步获取图表 type类别，User：用户;Blog:博客,Fans:微信粉丝,Link:友情链接]
+     */
+    public function actionGetChart() {
+        $type = empty($_POST['type']) ? 'User' : $_POST['type'];
+        $dateTime = empty($_POST['date']) ? date('Y-m') : $_POST['date'];
+        if ($type == 'User') {
+            $dataArr = $this->getDataCount('UserNum', $dateTime);
+        } else if ($type == 'Blog') {
+            $dataArr = $this->getDataCount('BlogNum', $dateTime);
+        } else if($type == 'Fans') {
+            $dataArr = $this->getDataCount('FansNum',$dateTime);
+        } else if($type == 'Link') {
+            $dataArr = $this->getDataCount('LinkNum',$dateTime);
+        }
+        $dateString = $this->_getDate($dateTime);
+        echo json_encode(['code' => 1, 'dataArr' => $dataArr, 'dateString' => $dateString]);
+        exit;
+    }
+
 
     /**
      * @Author       huangxinqiang
      * @DateTime     19-5-21 下午5:30
-     * @NAME         _getDataCount
-     * @description  [该产业带下每月统计,inquiryNum：询盘数;productNum:产品数,companyNum:企业入驻数]
-     * @param $cyd_id
+     * @NAME         getDataCount
+     * @description  [每月统计,UserNum：用户数;BlogNum:博客文章数,FansNum:微信粉丝数,LinkNum:友情链接数]
      * @param $type
      * @param $datetime
      * @param int $limit
      * @return array
      */
-    public function _getDataCount($cyd_id, $type, $datetime, $limit = 12) {
-        if (!empty($cyd_id) && !empty($type)) {
+    public function getDataCount($type, $datetime, $limit = 12) {
+        if (!empty($type)) {
             $typeString = [];
-            $criteria = new CDbCriteria;
-            $criteria->select = "$type";
-            $criteria->condition = "cyd_id = '{$cyd_id}' AND dateTime <= '{$datetime}'";
-            $criteria->order = 'dateTime DESC';
-            $criteria->limit = $limit;
-            $type_list = CydDataCount::model()->findAll($criteria);
+            $type_list = DataTotalBack::find()->where(['<=','datetime',$datetime])->orderBy(['datetime'=>SORT_DESC])->limit($limit)->All();
             if (!empty($type_list)) {
                 $type_list = array_reverse($type_list);
                 foreach ($type_list as $key => $value) {
@@ -270,25 +267,16 @@ class SiteController extends Controller
     /**
      * @Author       huangxinqiang
      * @DateTime     19-5-21 下午5:30
-     * @NAME         _getDataCount
-     * @description  [该产业带下询盘总数统计，产品总数统计，入驻企业总数统计;inquiryAllNum:询盘总数,productAllNum:产品总数,companyAllNum:入驻企业总数]
-     * @param $cyd_id
+     * @NAME         getAllDataCount
+     * @description  [总数统计,UserNum：用户数;BlogNum:博客文章数,FansNum:微信粉丝数,LinkNum:友情链接数]
      * @param $type
-     * @param $datetime
-     * @param int $limit
      * @return array
      */
-    public function _getAllDataCount($cyd_id, $type) {
-        if (!empty($cyd_id) && !empty($type)) {
-            $criteria = new CDbCriteria;
-            $criteria->select = "$type";
-            $criteria->condition = "cyd_id = '{$cyd_id}'";
-            $res = CydAllTotal::model()->find($criteria);
-            if($res){
-                return $res->$type;
-            }
-            return 0;
+    public function getAllDataCount($type) {
+        if (!empty($type)) {
+            return DataTotalBack::find()->sum("{$type}");
         }
+        return 0;
     }
 
 
@@ -304,19 +292,15 @@ class SiteController extends Controller
      * @return array
      */
     public function _getDate( $datetime, $limit = 12) {
-        if (!empty($cyd_id)) {
-            $typeString = [];
-            $type_list = ArticleBack::find()->where("created_time<=$datetime")->All();
-		echo "<pre>";
-print_r($type_list);exit;
-            if (!empty($type_list)) {
-                $type_list = array_reverse($type_list);
-                foreach ($type_list as $key => $value) {
-                    $typeString[] = $value->dateTime;
-                }
+        $typeString = [];
+        $type_list = DataTotalBack::find()->where(['<=', 'datetime', $datetime])->orderBy(['datetime'=>SORT_DESC])->limit($limit)->All();
+        if (!empty($type_list)) {
+            $type_list = array_reverse($type_list);
+            foreach ($type_list as $key => $value) {
+                $typeString[] = $value->datetime;
             }
-            return $typeString;
         }
+        return $typeString;
     } 
 
 

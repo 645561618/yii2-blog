@@ -26,37 +26,3 @@ pre code{
     </div>
 </div>
 
-<!--百度分享-->
-<div class="baidu-share">
-<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more">分享到：</a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a><a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧">百度贴吧</a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a><a href="#" class="bds_mshare" data-cmd="mshare" title="分享到一键分享">一键分享</a></div>
-</div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{"bdSize":16},"image":{"viewList":["tsina","weixin","qzone","tqq","tieba","renren","mshare"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["tsina","weixin","qzone","tqq","tieba","renren","mshare"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-
-
-<script type="text/javascript">  
-    var setMyBlog = {
-        setCodeRow: function(){
-            // 代码行号显示
-	    var pre = $(".article-detail pre code"); //选中需要更改的部分
-            if(pre && pre.length){
-                pre.each(function() {
-                    var item = $(this);
-                    var lang = item.attr("class").split(" ")[1]; //判断高亮的语言
-                    item.html(item.html().replace(/<[^>]+>/g,"")); //将<pre>标签中的html标签去掉
-                    item.removeClass().addClass("brush: " + lang +";"); //根据语言添加笔刷
-                    SyntaxHighlighter.all();
-                })
-            }
-        },
-        runAll: function() {
-            /* 运行所有方法
-             * setAtarget() 博客园内标签新窗口打开
-             * setContent() 设置目录
-             * setCopyright() 设置版权信息
-             * setCodeRow() 代码行号显示
-             */ 
-            this.setCodeRow();
-        }
-    }
-    setMyBlog.runAll();
-</script>

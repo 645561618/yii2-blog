@@ -8,6 +8,7 @@ use backend\models\CustomerBack;
 use backend\models\BalanceBack;
 use backend\models\TotalBalanceBack;
 use common\models\Article;
+use common\components\xunsearch\Search;
 
 class ProcessController extends Controller
 {
@@ -81,6 +82,22 @@ class ProcessController extends Controller
 	}
 	return false;
 
+    }
+
+    public function actionUpdateViews()
+    {
+	$model = Article::find()->where(['status'=>2])->all();
+	if($model){
+		foreach($model as $k => $v){
+			$search = Search::findOne($v->id);
+                        if($search){
+        			$search->views = $v->views;
+        			$search->save();
+				echo "title=>".$v->title." , views=>".$v->views."\r\n";
+                        }
+		}	
+	}
+			
     }
 
 

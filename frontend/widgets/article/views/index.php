@@ -24,11 +24,9 @@ use common\models\Common;
 		          <!--<p class="adesc"><?=mb_substr($list['desc'],0,150,'utf-8');?>...</p>-->
 		          <p class="adesc"><?=Html::encode(Common::cutstr($list['desc'],150));?></p>
 			  <div class="row row-info">
-				<span class="articel-label col-lg-3 col-md-2 col-xs-6"><a href="<?=Url::toRoute(['/home/index','tid'=>$list['tid']])?>"><?=Html::encode(ArticleFront::getLabelName($list['tid']))?></a></span>
+				<span class="articel-label col-lg-2 col-md-2 col-xs-6"><a href="<?=Url::toRoute(['/home/index','tid'=>$list['tid']])?>"><?=Html::encode(ArticleFront::getLabelName($list['tid']))?></a></span>
+				<span class="views col-lg-7 col-md-2 col-xs-6">浏览（<a href="javascript:;"><?=isset($list['views'])?$list['views']:0?></a>）</span>
 				<span class="time col-lg-3 col-md-3 col-xs-6"><?=Html::encode(date('Y-m-d',$list['created']))?></span>
-				<span class="views col-lg-3 col-md-2 col-xs-6">浏览（<a href="javascript:;"><?=isset($list['views'])?$list['views']:0?></a>）</span>
-				<!--<span class="comment f_r col-lg-3 col-md-5 col-xs-6">评论（<a href="javascript:;"><?=isset($list['comment_nums'])?$list['comment_nums']:0?></a>）</span>-->
-				<span class="comment f_r col-lg-3 col-md-5 col-xs-6">评论（<a href="<?=Url::toRoute(['home/detail', 'id' =>$list['id'],'cid'=>$list['cid']]);?>"><?=isset($list['comment_nums'])?$list['comment_nums']:0?></a>）</span>
 			  </div>
 		   </div>
 	        </div>

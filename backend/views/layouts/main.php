@@ -193,5 +193,6 @@ Modal::end();
 	function showMenu(num){
                 $("#active-children").find('ul').hide();
         }
-</script>;  
+</script>;
+<script src="/js/highcharts.js"></script>
 <?php $this->endPage() ?>

@@ -8,11 +8,11 @@ return [
 	'auth/assignment' => ['manager-auth-assignment','manager*'],
 	'auth/flushperms' => ['manager-auth-flushperms','manager*'],
 	'manager/admin' => ['manager-manager-admin','manager*'],
-        'manager/update' => ['manager-manager-update','manager*'],
-        'manager/delete' => ['manager-manager-delete','manager*'],
-        'manager/create' => ['manager-manager-create','manager*'],
-        'manager/update-manager' => ['manager-update-manager','manager*'],
-
+    'manager/update' => ['manager-manager-update','manager*'],
+    'manager/delete' => ['manager-manager-delete','manager*'],
+    'manager/create' => ['manager-manager-create','manager*'],
+    'manager/update-manager' => ['manager-update-manager','manager*'],
+	
 	/*'apply/index' => ['apply-index','apply*'],
         'apply/delete-apply' => ['apply-delete-apply','apply*'],
         'apply/delete-all' => ['apply-delete-all','apply*'],
@@ -63,6 +63,8 @@ return [
 	'prize/service'  => ['prize-service','prize*'],
 	'prize/update-wx'  => ['prize-update-wx','prize*'],
 	'prize/upload'  => ['prize-upload','prize*'],
+
+
 
 
 ];

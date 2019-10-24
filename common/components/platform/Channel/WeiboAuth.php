@@ -9,7 +9,7 @@ use common\models\UserCenter;
 class WeiboAuth extends PlatformChannelAbstract
 {
 
-	public $chn_name = "weibo";//config配置platform文件中的platform_channel_qq.php
+	public $chn_name = "weibo";//config配置platform文件中的platform_channel_weibo.php
 
 	protected $client_id ="";
 
@@ -67,7 +67,7 @@ class WeiboAuth extends PlatformChannelAbstract
 	*/
 	public function getUserInfo($token){
 	    	//get user info
-		if(!empty($access_token)){
+		if(!empty($token)){
 			//获取oenid
                  $url = $this->userinfo_url."access_token=".$token['access_token']."&uid=".$token['uid'];
                 $result = $this->curl($url);
@@ -76,13 +76,15 @@ class WeiboAuth extends PlatformChannelAbstract
 					$user = UserCenter::find()->where(['openid'=>$userInfo->id])->one();
                     if(!$user){
                             $user = new UserCenter;
-                            $user->openid = $userinf->id;
+                            $user->openid = $userInfo->id;
                             $user->nickname = $userInfo->name;
                             $user->gender = $userInfo->gender;
                             $user->province = $userInfo->province;
                             $user->city = $userInfo->city;
                             $user->headimgurl = $userInfo->profile_image_url;
                             $user->time = time();
+                            $user->type = 1;//0:qq;1:weibo;2:github
+                            $user->location = $userInfo->location;
                             $user->save(false);
                     }
                     $data = [

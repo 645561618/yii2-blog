@@ -82,7 +82,7 @@ class GithubAuth extends PlatformChannelAbstract
 					$user->email = $userInfo->email?$userInfo->email:"";
 					$user->headimgurl = $userInfo->avatar_url?$userInfo->avatar_url:"";
 					$user->time = time();
-					$user->type = 2;//0:qq;1:微信;2:github
+					$user->type = 2;//0:qq;1:weibo;2:github
 					$user->save(false);
 				}
 				$data = [

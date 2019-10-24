@@ -72,10 +72,8 @@ class WeiboAuth extends PlatformChannelAbstract
                  $url = $this->userinfo_url."access_token=".$token['access_token']."&uid=".$token['uid'];
                 $result = $this->curl($url);
                 $userInfo = json_decode($result);
-                echo "<pre>";exit;
-                print_r($userInfo);exit;
-                if($userInfo->ret==0){
-					$user = UserCenter::find()->where(['openid'=>$openid])->one();
+                if($userInfo){
+					$user = UserCenter::find()->where(['openid'=>$userInfo->id])->one();
                     if(!$user){
                             $user = new UserCenter;
                             $user->openid = $userinf->id;

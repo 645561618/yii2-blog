@@ -31,6 +31,7 @@ class WeiboAuth extends PlatformChannelAbstract
         	$this->request_url = @$this->_config['request_url'] ?:'';
         	$this->redirect_uri = @$this->_config['redirect_uri'] ?:'';
         	$this->token_url = @$this->_config['token_url']?:'';
+        	$this->userinfo_url = @$this->_config['userinfo_url']?:'';
     	}
 
 
@@ -49,13 +50,11 @@ class WeiboAuth extends PlatformChannelAbstract
 			//获取access_token
 			$Token = $this->token_url."grant_type=authorization_code&client_id=".$this->client_id."&client_secret=".$this->client_secret."&code=".$code."&redirect_uri=".urlencode($this->getCallbackUrl());
 			$res = $this->curl($Token);
-			echo "<pre>";
-			print_r($res);exit;
 			$params = array();
 			parse_str($res, $params);//字符串解析到变量
 			if($params['access_token']){
 				$access_token = $params['access_token'];
-				// return $this->getUserInfo($access_token);	
+				return $this->getUserInfo($access_token);	
 			}
 			return false;
 		}
@@ -72,39 +71,32 @@ class WeiboAuth extends PlatformChannelAbstract
 	    	//get user info
 		if(!empty($access_token)){
 			//获取oenid
-                        $openURL = $this->openid_url."access_token=".$access_token;
-                        $response = $this->curl($openURL);
-                        if(strpos($response, "callback") !== false){
-                                $lpos = strpos($response, "(");
-                                $rpos = strrpos($response, ")");
-                                $response = substr($response, $lpos + 1, $rpos - $lpos -1);
-                        }
-                        $user = json_decode($response);
-                        $openid = $user->openid;
-                        $url = $this->userinfo_url."access_token=".$access_token."&oauth_consumer_key=".$this->client_id."&openid=".$openid;
-                        $result = $this->curl($url);
-                        $userInfo = json_decode($result);
-                        if($userInfo->ret==0){
-				$user = UserCenter::find()->where(['openid'=>$openid])->one();
-				if(!$user){
-					$user = new UserCenter;
-					$user->openid = $openid;
-					$user->nickname = $userInfo->nickname;
-					$user->gender = $userInfo->gender;
-					$user->province = $userInfo->province;
-					$user->city = $userInfo->city;
-					$user->headimgurl = $userInfo->figureurl_qq_1;
-					$user->time = time();
-					$user->save(false);
-				}
-				$data = [
-					'uid' => $user->id,
-					'nickname' => $userInfo->nickname,
-					'head_img'=> $userInfo->figureurl_qq_1,
-					'time' => time()+3600,
-				];
-				return $data;
-                        }
+                $url = $this->userinfo_url."access_token=".$access_token['access_token']."&uid=".$access_token['uid'];
+                $result = $this->curl($url);
+                $userInfo = json_decode($result);
+                echo "<pre>";exit;
+                print_r($userInfo);exit;
+                if($userInfo->ret==0){
+					$user = UserCenter::find()->where(['openid'=>$openid])->one();
+					if(!$user){
+						$user = new UserCenter;
+						$user->openid = $openid;
+						$user->nickname = $userInfo->nickname;
+						$user->gender = $userInfo->gender;
+						$user->province = $userInfo->province;
+						$user->city = $userInfo->city;
+						$user->headimgurl = $userInfo->figureurl_qq_1;
+						$user->time = time();
+						$user->save(false);
+					}
+					$data = [
+						'uid' => $user->id,
+						'nickname' => $userInfo->nickname,
+						'head_img'=> $userInfo->figureurl_qq_1,
+						'time' => time()+3600,
+					];
+					return $data;
+                }
 
 	    	}
 	    	return [];

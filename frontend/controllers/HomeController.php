@@ -101,14 +101,14 @@ class HomeController extends FrontendController
         	return $this->redirect($url);
 	}
 
-	public function actionComment()
+
+	//weibo登录
+	public function actionWbLogin()
 	{
-		/*$aid = $_GET['id'];
-		$result = UserCommentFront::getCommentData($aid);
-		$comment_nums = UserCommentFront::getCommentNums($aid);
-		return $this->render('test',['result'=>$result,'nums'=>$comment_nums]);
-		*/
+		$url  = Yii::$app->platform->getPlatformLoginUrl("weibo");
+        	return $this->redirect($url);
 	}
+
 
 	//评论
 	public function actionComments()

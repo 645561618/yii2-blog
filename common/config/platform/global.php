@@ -1,8 +1,8 @@
 <?php
 return [
     'channels'=>[
-          'weixin'=>[
-          	'className'=>'Weixin',
+          'weibo'=>[
+          	'className'=>'WeiboAuth',
           ],
           'qq'=>[
                 'className'=>'QQAuth',

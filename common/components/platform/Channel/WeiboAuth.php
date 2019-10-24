@@ -6,21 +6,33 @@ use common\components\platform\Channel\PlatformChannelAbstract;
 use common\components\GHelper;
 use common\models\UserCenter;
 
-class WxAuth extends PlatformChannelAbstract
+class WeiboAuth extends PlatformChannelAbstract
 {
 
-	public $chn_name = "wx";//config配置platform文件中的platform_channel_qq.php
+	public $chn_name = "weibo";//config配置platform文件中的platform_channel_qq.php
 
-	protected $appid ="";
+	protected $client_id ="";
 
-        protected $appsecret = "";
+        protected $client_secret = "";
 
+        protected $request_url="";
+
+        protected $token_url="";
+
+        protected $openid_url="";
+
+        protected $userinfo_url="";
 
 	public function init()
 	{
         	parent::init();
-        	$this->appid = @$this->_config['client_id']?:'';
-        	$this->appsecret = @$this->_config['client_secret']?:'';
+        	$this->client_id = @$this->_config['client_id']?:'';
+        	$this->client_secret = @$this->_config['client_secret']?:'';
+        	$this->request_url = @$this->_config['request_url'] ?:'';
+        	$this->redirect_uri = @$this->_config['redirect_uri'] ?:'';
+        	$this->token_url = @$this->_config['token_url']?:'';
+        	$this->openid_url = @$this->_config['openid_url']?:'';
+        	$this->userinfo_url = @$this->_config['userinfo_url']?:'';
     	}
 
 
@@ -37,8 +49,10 @@ class WxAuth extends PlatformChannelAbstract
 		if(isset($params['code'])){
 			$code  = $params['code'];
 			//获取access_token
-			$Token = $this->token_url."grant_type=authorization_code&client_id=".$this->client_id."&client_secret=".$this->client_secret."&code=".$code."&redirect_uri=".urlencode($this->getCallbackUrl());
+			$Token = $this->token_url."grant_type=authorization_code&client_id=".$this->client_id."&client_secret=".$this->client_secret."&grant_type=authorization_code&code=".$code."&redirect_uri=".urlencode($this->getCallbackUrl());
 			$res = $this->curl($Token);
+			echo "<pre>";
+			print_r($res);exit;
 			$params = array();
 			parse_str($res, $params);//字符串解析到变量
 			if($params['access_token']){

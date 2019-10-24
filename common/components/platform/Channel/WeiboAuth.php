@@ -48,14 +48,12 @@ class WeiboAuth extends PlatformChannelAbstract
 		if(isset($params['code'])){
 			$code  = $params['code'];
 			//获取access_token
-			$Token = $this->token_url."grant_type=authorization_code&client_id=".$this->client_id."&client_secret=".$this->client_secret."&code=".$code."&redirect_uri=".urlencode($this->getCallbackUrl());
-			$res = $this->curl($Token);
-			$params = array();
-			parse_str($res, $params);//字符串解析到变量
-			if($params['access_token']){
-				$access_token = $params['access_token'];
-				return $this->getUserInfo($access_token);	
-			}
+			$url = $this->token_url."grant_type=authorization_code&client_id=".$this->client_id."&client_secret=".$this->client_secret."&code=".$code."&redirect_uri=".urlencode($this->getCallbackUrl());
+			$res = $this->post($url, array());
+            $token = json_decode($res, true);
+            if($token){
+                    return $this->getUserInfo($token);
+            }
 			return false;
 		}
 
@@ -67,35 +65,36 @@ class WeiboAuth extends PlatformChannelAbstract
 	 * include nickname and avatar
 	 * @return [type] [description]
 	*/
-	public function getUserInfo($access_token){
+	public function getUserInfo($token){
 	    	//get user info
 		if(!empty($access_token)){
 			//获取oenid
-                $url = $this->userinfo_url."access_token=".$access_token['access_token']."&uid=".$access_token['uid'];
+                 $url = $this->userinfo_url."access_token=".$token['access_token']."&uid=".$token['uid'];
                 $result = $this->curl($url);
                 $userInfo = json_decode($result);
                 echo "<pre>";exit;
                 print_r($userInfo);exit;
                 if($userInfo->ret==0){
 					$user = UserCenter::find()->where(['openid'=>$openid])->one();
-					if(!$user){
-						$user = new UserCenter;
-						$user->openid = $openid;
-						$user->nickname = $userInfo->nickname;
-						$user->gender = $userInfo->gender;
-						$user->province = $userInfo->province;
-						$user->city = $userInfo->city;
-						$user->headimgurl = $userInfo->figureurl_qq_1;
-						$user->time = time();
-						$user->save(false);
-					}
-					$data = [
-						'uid' => $user->id,
-						'nickname' => $userInfo->nickname,
-						'head_img'=> $userInfo->figureurl_qq_1,
-						'time' => time()+3600,
-					];
-					return $data;
+                    if(!$user){
+                            $user = new UserCenter;
+                            $user->openid = $userinf->id;
+                            $user->nickname = $userInfo->name;
+                            $user->gender = $userInfo->gender;
+                            $user->province = $userInfo->province;
+                            $user->city = $userInfo->city;
+                            $user->headimgurl = $userInfo->profile_image_url;
+                            $user->time = time();
+                            $user->save(false);
+                    }
+                    $data = [
+                            'uid' => $user->id,
+                            'nickname' => $userInfo->name,
+                            'head_img'=> $userInfo->profile_image_url,
+                            'time' => time()+3600,
+                    ];
+                    return $data;
+
                 }
 
 	    	}
@@ -105,15 +104,40 @@ class WeiboAuth extends PlatformChannelAbstract
 
 
 	public function curl($url){
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-                curl_setopt($ch, CURLOPT_URL, $url);
-                $res =  curl_exec($ch);
-                curl_close($ch);
-                return $res;
-        }
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+            curl_setopt($ch, CURLOPT_URL, $url);
+            $res =  curl_exec($ch);
+            curl_close($ch);
+            return $res;
+    }
 
+    /*
+     * post method
+ 	*/
+	public function post( $url, $param )
+	{
+	   $oCurl = curl_init ();
+	  curl_setopt ( $oCurl, CURLOPT_SAFE_UPLOAD, false);
+	  if (stripos ( $url, "https://" ) !== FALSE) {
+	    curl_setopt ( $oCurl, CURLOPT_SSL_VERIFYPEER, FALSE );
+	    curl_setopt ( $oCurl, CURLOPT_SSL_VERIFYHOST, false );
+	  }
+
+	  curl_setopt ( $oCurl, CURLOPT_URL, $url );
+	  curl_setopt ( $oCurl, CURLOPT_RETURNTRANSFER, 1 );
+	  curl_setopt ( $oCurl, CURLOPT_POST, true );
+	  curl_setopt ( $oCurl, CURLOPT_POSTFIELDS, $param );
+	  $sContent = curl_exec ( $oCurl );
+	  $aStatus = curl_getinfo ( $oCurl );
+	  curl_close ( $oCurl );
+	  if (intval ( $aStatus ["http_code"] ) == 200) {
+	    return $sContent;
+	  } else {
+	    return false;
+	  }
+	}
 
 		
 	

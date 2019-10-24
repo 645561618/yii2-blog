@@ -16,7 +16,7 @@ AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
-<html lang="<?= Yii::$app->language ?>">
+<html lang="<?= Yii::$app->language ?>" xmlns:wb="http://open.weibo.com/wb">
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="pragma" content="no-cache">
@@ -28,6 +28,7 @@ AppAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <script src="https://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body onselectstart="return true">
 <?php $this->beginBody() ?>

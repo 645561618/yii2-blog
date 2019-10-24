@@ -23,6 +23,7 @@ pre code{
     </div>
     <div class="article-detail" style="">
 	<?=yii\helpers\Markdown::process($model->desc,'gfm');?>
+        <wb:like appkey="IbGu2"></wb:like>
     </div>
 </div>
 

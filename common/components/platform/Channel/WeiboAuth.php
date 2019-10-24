@@ -31,8 +31,6 @@ class WeiboAuth extends PlatformChannelAbstract
         	$this->request_url = @$this->_config['request_url'] ?:'';
         	$this->redirect_uri = @$this->_config['redirect_uri'] ?:'';
         	$this->token_url = @$this->_config['token_url']?:'';
-        	$this->openid_url = @$this->_config['openid_url']?:'';
-        	$this->userinfo_url = @$this->_config['userinfo_url']?:'';
     	}
 
 
@@ -49,7 +47,7 @@ class WeiboAuth extends PlatformChannelAbstract
 		if(isset($params['code'])){
 			$code  = $params['code'];
 			//获取access_token
-			$Token = $this->token_url."grant_type=authorization_code&client_id=".$this->client_id."&client_secret=".$this->client_secret."&grant_type=authorization_code&code=".$code."&redirect_uri=".urlencode($this->getCallbackUrl());
+			$Token = $this->token_url."grant_type=authorization_code&client_id=".$this->client_id."&client_secret=".$this->client_secret."&code=".$code."&redirect_uri=".urlencode($this->getCallbackUrl());
 			$res = $this->curl($Token);
 			echo "<pre>";
 			print_r($res);exit;
@@ -57,7 +55,7 @@ class WeiboAuth extends PlatformChannelAbstract
 			parse_str($res, $params);//字符串解析到变量
 			if($params['access_token']){
 				$access_token = $params['access_token'];
-				return $this->getUserInfo($access_token);	
+				// return $this->getUserInfo($access_token);	
 			}
 			return false;
 		}

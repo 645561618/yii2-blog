@@ -12,6 +12,7 @@ use backend\models\Upload;
 use backend\models\LinksBack;
 use common\models\Common;
 use common\components\Email;
+use backend\models\NoticeBack;
 
 class BlogController extends BackendController{
 
@@ -209,7 +210,6 @@ class BlogController extends BackendController{
 					$search->weight = $model->weight;
 					$search->created = $model->created;
 					$search->save();
-
 					Yii::$app->session->setFlash('success','文章编辑成功');
                                         return $this->redirect('/blog/article-list');
                                 }
@@ -279,9 +279,6 @@ class BlogController extends BackendController{
                 //去掉最后一个字符
                 $id = substr($id,0,strlen($id)-1);
                 $groups = split("-",$id);
-                //echo $id;
-                //echo "<pre>";
-                //print_r($groups);exit;
                 foreach($groups as $g){
                         if(!empty($g)){
                                 list($id,$num) = split('_',$g);
@@ -462,10 +459,83 @@ EOF;
 			}
 		}
 	}
-	
-	
 
 
+	/*
+	 *通知列表
+	*/ 
+	public function actionNotice(){
+		$model = new NoticeBack;
+		$dataProvider = $model->search();
+		return $this->render('notice-list',['model'=>$model,'dataProvider'=>$dataProvider]);	
+	}
+
+	/*
+	 *添加通知
+	 */
+	public function actionAddNotice(){
+		$model = new NoticeBack;
+		if(Yii::$app->request->isPost){
+			$post = Yii::$app->request->post();
+			$model->load($post);
+			if($model->validate()){
+				$model->save();
+				return $this->redirect('/blog/notice');
+			}
+		}
+		return $this->render('add-notice',['model'=>$model,'isNew'=>true]);
+	}
+
+	/*
+	 *修改通知
+	 */
+	public function actionUpdateNotice($id){
+		if($id){
+			$model = NoticeBack::findOne($id);
+			if(Yii::$app->request->isPost){
+				if($model->updateNotice(Yii::$app->request->post())){
+					Yii::$app->session->setFlash('success','修改通知成功！');
+					return $this->redirect('/blog/notice');
+				}else{
+					Yii::$app->session->setFlash('error','修改通知失败！');
+				}
+			}
+		}
+		return $this->render('add-notice',['model'=>$model,'isNew'=>false]);
+	}
+
+	//删除通知
+	public function actionDeleteNotice($id){
+		if($id){
+			$model = NoticeBack::findOne($id);
+			if($model->delete()){
+				Yii::$app->session->setFlash('success','文章通知成功');
+				return $this->redirect('/blog/notice');
+			}
+		}
+	}
+
+
+	/*
+	*socket
+	*/
+	public function pushSocketInfo($content)
+	{
+		$push_api_url = "http://127.0.0.1:2121/";
+		$post_data = array(
+		   "type" => "publish",
+		   "content" => $content,
+		);
+		$ch = curl_init ();
+		curl_setopt ( $ch, CURLOPT_URL, $push_api_url );
+		curl_setopt ( $ch, CURLOPT_POST, 1 );
+		curl_setopt ( $ch, CURLOPT_HEADER, 0 );
+		curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
+		curl_setopt ( $ch, CURLOPT_POSTFIELDS, $post_data );
+		curl_setopt ($ch, CURLOPT_HTTPHEADER, array("Expect:"));
+		curl_exec ( $ch );
+		curl_close ( $ch );
+	}
 
 
 

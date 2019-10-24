@@ -7,7 +7,13 @@ use common\models\Common;
 ?>
 <div class="panel" style="box-shadow: 2px 2px 2px 2px #E2E2E2;">
     <div class="panel-title box-title">
-        <span>热门文章</span>
+        <?php if($notice){?>
+            <?php foreach ($notice as $k => $v) {?>
+                <span class="notice"></span><marquee style="width:98%;"><span><?=$v->content?></span></marquee>
+            <?php }?>
+        <?php }else{?>
+            <span>热门文章</span>
+        <?php }?>
     </div>
     <div class="new-list">
 	<?php if($data){?>
@@ -41,6 +47,5 @@ use common\models\Common;
 	<?php }?>
     </div>
 </div>
-
 <script id="cy_cmt_num" src="https://changyan.sohu.com/upload/plugins/plugins.list.count.js?clientId=cytq8LGDe">
 </script>

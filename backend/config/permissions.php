@@ -57,6 +57,11 @@ return [
 	'blog/update-article' => ['blog-update-article','blog*'],
 	'blog/delete-list' => ['blog-delete-article','blog*'],
 	'blog/upload' => ['blog-upload','blog*'],
+	'blog/notice' => ['blog-notice','blog*'],
+	'blog/add-notice' => ['blog-add-notice','blog*'],
+	'blog/update-notice' => ['blog-update-notice','blog*'],
+	'blog/update-notice' => ['blog-update-notice','blog*'],
+	
 	
 	'prize/index'  => ['prize-index','prize*'],
 	'prize/grant'  => ['prize-grant','prize*'],

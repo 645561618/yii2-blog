@@ -138,6 +138,20 @@ return [
 		'icon'=>'list-alt',
 		'style'=>'',
 		'subs' => [
+            [
+                'name' => '通知管理',
+                'route' => 'blog/notice',
+                'subs_son'=>[
+                        [
+                                'name' => '通知列表',
+                                'route' => 'blog/notice',
+                        ],
+                        [
+                                'name' => '添加通知',
+                                'route' => 'blog/add-notice',
+                        ],
+                ],
+            ],
 			[
                                 'name' => '分类管理',
                                 'route' => 'blog/category',

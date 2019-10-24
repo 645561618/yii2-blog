@@ -10,6 +10,7 @@ use Yii;
 use yii\base\Widget;
 use frontend\models\article\ArticleFront;
 use common\components\SubPages;
+use common\models\Notice;
 
 class ArticleWidget extends Widget
 {
@@ -31,6 +32,7 @@ class ArticleWidget extends Widget
 	$result = ArticleFront::getArticleInfo($tid,$cid,"",$count,$pageCurrent);
 	$subPages = new SubPages($count, $num, $pageCurrent, $sub_pages, "?p=", 1);
 	$p = $subPages->show_SubPages(2);
-	return $this->render('index', ['data' => $result,'page'=>$p]);
+	$notice = Notice::find()->where(['status'=>1])->all();
+	return $this->render('index', ['data' => $result,'page'=>$p,'notice'=>$notice]);
     }
 }

@@ -41,7 +41,6 @@ class WechatController extends BackendController
     //更新自动回复
     public function actionUpdateReply($id)
     {
-        echo 111;exit;
         $model = KeywordsBack::findOne($id);
         if (Yii::$app->request->isPost) {
             $post = Yii::$app->request->post();

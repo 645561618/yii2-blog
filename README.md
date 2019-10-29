@@ -3,7 +3,7 @@ Yii 2 Advanced Project －博客
 
 个人博客地址：www.hxinq.com
 
-数据库：yii2Blog.sql ,后台登录账号:admin  密码:123456,有任何问题可以扫加码加微信咨询
+数据库：yii2Blog.sql ,后台登录账号:admin  密码:123456,有任何问题可以扫码加微信咨询
 
 
 微信:

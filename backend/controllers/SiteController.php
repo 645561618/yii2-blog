@@ -9,7 +9,6 @@ use backend\models\LoginBack;
 use common\models\LoginForm;
 use common\models\Common;
 use backend\model\LimitBack;
-use backend\models\Log;
 use yii\data\Pagination;
 use backend\components\Helper;
 use common\components\Email;
@@ -128,7 +127,6 @@ class SiteController extends Controller
 	$model = new LoginForm();
 	if(!empty($post)){
 		if ($model->load(Yii::$app->request->post()) && $model->login()) {
-			$model->loginLog();
 
 			$username = Yii::$app->user->identity->username;
 			$ip = Yii::$app->request->userIP;

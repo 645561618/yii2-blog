@@ -3,7 +3,11 @@ Yii 2 Advanced Project －博客
 
 个人博客地址：www.hxinq.com
 
-数据库：yii2Blog ,后台登录账号:admin  密码:123456
+数据库：yii2Blog.sql ,后台登录账号:admin  密码:123456,有任何问题可以扫加码加微信咨询
+
+微信:
+![image](https://gitee.com/this_summer/yii2-blog/raw/master/web/images/wx.jpg "博客")
+
         
 前台：
 -------------------
@@ -14,10 +18,11 @@ Yii 2 Advanced Project －博客
 -------------------
 ![image](https://gitee.com/this_summer/yii2-blog/raw/master/web/images/2.png "博客")
 
-目录：
 -------------------
 ![image](https://gitee.com/this_summer/yii2-blog/raw/master/web/images/3.png "博客")
 
+
+目录：
 ```
 common
     config/              contains shared configurations

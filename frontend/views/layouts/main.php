@@ -138,7 +138,7 @@ AppAsset::register($this);
 			</div>
 			<div class="modal-body" style="text-align:center;">
 				<a href="/home/login"><img alt="黄信强博客" src="/images/login/qq.png"></a>&nbsp;&nbsp;
-				<a href="/home/wb-login" class="wx_login"><img alt="黄信强博客" src="/images/login/weixin.png"></a>
+				<a href="/home/wb-login" class="wx_login"><img alt="黄信强博客" src="/images/login/weibo.png"></a>
 				<a href="/home/github-login" class="wx_login"><img alt="黄信强博客"  src="/images/login/github.jpg"></a>
 			</div>
 			<!--<div class="modal-footer" style="text-align:center;display:none;">

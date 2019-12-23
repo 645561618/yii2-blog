@@ -112,6 +112,9 @@ class Upload{
                 $url = Yii::$app->params['targetDomain'].$thumb1;
                 return [true,$url,$thumb1,$thumb2];
             }
+            $oss_file_path = 'blog/'.$new_file_name;
+            $oss_url = Yii::$app->Aliyunoss->upload($file_path,$file_path);
+            echo $oss_url;exit;
             return [true,$url,$realpath];
             // $this->mkhtml($fn,$url,"上传成功");
         }else{

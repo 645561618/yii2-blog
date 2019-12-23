@@ -34,71 +34,6 @@ return [
             ],
         ],
 	
-	/*'shop'=>[
-            'name' => '订单管理',
-            'route' => 'shop/index',
-            'icon'=>'bell',
-            'style'=>'',
-            'subs' => [
-		[
-                    'name' => '订单列表',
-                    'route' => 'shop/index',
-                ],
-            ],
-        ],
-
-        'customer'=>[
-            'name' => '客户信息管理',
-            'route' => 'customer/list',
-            'icon'=>'star',
-            'style'=>'',
-            'subs' => [
-		[
-                    'name' => '客户列表',
-                    'route' => 'customer/list',
-                ],
-                [
-                    'name' => '添加客户信息',
-                    'route' => 'customer/add',
-                ],
-		[
-                    'name' => '添加',
-                    'route' => 'false-customer/add',
-                ],
-            ],
-        ],
-
-	'business'=>[
-            'name' => '商家管理',
-            'route' => 'business/list',
-            'icon'=>'star',
-            'style'=>'',
-            'subs' => [
-                [
-                    'name' => '商家列表',
-                    'route' => 'business/list',
-                ],
-		[
-                    'name' => '添加商家',
-                    'route' => 'business/add',
-                ],
-            ],
-    	],
-
-	'apply'=>[
-            'name' => '申请管理',
-            'route' => 'apply/index',
-            'icon'=>'star',
-            'style'=>'',
-            'subs' => [
-                [
-                    'name' => '列表',
-                    'route' => 'apply/index',
-                ],
-            ],
-        ],*/
-
-
 
 	'wechat'=>[
             'name' => '微信管理',
@@ -138,6 +73,16 @@ return [
 		'icon'=>'list-alt',
 		'style'=>'',
 		'subs' => [
+            [
+                'name' => '用户管理',
+                'route' => 'blog/login-record',
+                'subs_son'=>[
+                        [
+                                'name' => '用户列表',
+                                'route' => 'blog/login-record',
+                        ],
+                ],
+            ],
             [
                 'name' => '通知管理',
                 'route' => 'blog/notice',

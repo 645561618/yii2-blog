@@ -13,6 +13,8 @@ use backend\models\LinksBack;
 use common\models\Common;
 use common\components\Email;
 use backend\models\NoticeBack;
+use common\models\UserCenter;
+use backend\models\UserRecordBack;
 
 class BlogController extends BackendController{
 
@@ -535,6 +537,14 @@ EOF;
 		curl_setopt ($ch, CURLOPT_HTTPHEADER, array("Expect:"));
 		curl_exec ( $ch );
 		curl_close ( $ch );
+	}
+
+
+	public function actionLoginRecord()
+	{
+		$model = new UserRecordBack;
+		$dataProvider = $model->search();
+		return $this->render('user-record',['model'=>$model,'dataProvider'=>$dataProvider]);	
 	}
 
 

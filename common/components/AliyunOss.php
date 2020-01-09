@@ -37,7 +37,7 @@ class AliyunOss
             $getOssInfo=self::$oss->uploadFile($bucket, $object, $filepath);
             $result['url'] = $getOssInfo['info']['url'];
             if($getOssInfo['info']['url']){
-                @unlink(substr($_path, 1));
+                // @unlink(substr($_path, 1));
             }
         }catch(OssException $e){
             var_dump($e);

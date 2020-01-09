@@ -105,6 +105,8 @@ class Upload{
         $model->tempName=$file['upload']['tmp_name'];
         if($model->saveAs($file_path)){
             $realpath = $dir.$new_file_name;
+            $oss_file_path = 'blog/'.$new_file_name;
+            $oss_url = Yii::$app->AliyunOss->upload($oss_file_path,$file_path);
             if($ifthumb){
                 $resize = new ResizeImage;
                 $thumb1 = $resize->getThumb($file_path,$realpath,$filetype,400,400);
@@ -112,9 +114,6 @@ class Upload{
                 $url = Yii::$app->params['targetDomain'].$thumb1;
                 return [true,$url,$thumb1,$thumb2];
             }
-            $oss_file_path = 'blog/'.$new_file_name;
-            $oss_url = Yii::$app->Aliyunoss->upload($file_path,$file_path);
-            echo $oss_url;exit;
             return [true,$url,$realpath];
             // $this->mkhtml($fn,$url,"上传成功");
         }else{

@@ -13,7 +13,6 @@ class AliyunOss
 
     public function __construct()
     {
-        parent::__construct();
         $accessKeyId = Yii::$app->params['oss']['accessKeyId'];                 //获取阿里云oss的accessKeyId
         $accessKeySecret = Yii::$app->params['oss']['accessKeySecret'];         //获取阿里云oss的accessKeySecret
         $endpoint = Yii::$app->params['oss']['endPoint'];                       //获取阿里云oss的endPoint

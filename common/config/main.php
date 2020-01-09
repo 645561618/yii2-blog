@@ -14,7 +14,7 @@ return [
             'class'=> 'common\components\PublicSafe',
         ],
 	'AliyunOss'=>[
-		'class' => 'common\components\Aliyunoss',
+		'class' => 'common\components\AliyunOss',
 	],
 	'platform'=>[
             'class'=>'common\components\platform\PlatformLogin',

@@ -208,7 +208,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-	<p><a href="http://www.hxinq.com">hxinq.com</a> 版权所有 <a href="http://www.miibeian.gov.cn">赣ICP备15008740号-1</a></p>
+	<p><a href="http://www.hxinq.com">hxinq.com</a> 版权所有 <a href="http://www.beian.miit.gov.cn">赣ICP备15008740号-1</a></p>
 	<hr>
         <p>本站主要用于学习记录和技术交流,如有疑问可以留言反馈,联系邮箱:hxinq@hxinq.com</p>
     </div>

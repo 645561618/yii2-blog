@@ -6,7 +6,7 @@ use common\models\Category;
 
 class CommonMenu{
 	
-	public static function getMenu(){
+	public function getMenu(){
 		$key = "front_common_menu";
 		$list = Yii::$app->cache->get($key);
 		if(empty($list)){
